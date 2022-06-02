@@ -1,0 +1,100 @@
+﻿@model Quizz.Models.EF.Exam
+@{
+    ViewBag.Title = "Test AOU";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var item = ViewBag.item;
+}
+
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-2">
+            <div class="sub-nav">
+                <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
+                <ul class="sub-nav__list">
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Student List", "Index", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Topic List", "TopicList", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Question List", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item sub-nav__item--active">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Test List", "TestList", "Admin", null, new { @id = "defaultOpen", @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Score List", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid__col-10">
+            <div class="nav-content__wrapper" id="student">
+                <div class="nav-content__header">
+                    <div class="breadcrumb">
+                        @Html.ActionLink("Test List", "TestList", "Admin", null, new { @class = "breadcrumb-link" })
+                        <span class="breadcrumb-separate"> > </span>
+                        <span class="breadcrumb-detail"></span>
+                        @if (@Request.Url.Segments[3] != "-1")
+                        {
+                            <span class="breadcrumb-detail">Update</span>
+                        }
+                        else
+                        {
+                            <span class="breadcrumb-detail">Save</span>
+                        }
+                    </div>
+                </div>
+                @using (Html.BeginForm("TestDetail", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="nav-content__body-form">
+                        <div class="nav-content__table-save">
+                            <div style="display: flex; justify-content: space-evenly;width: 100%">
+                                @Html.HiddenFor(m => m.exam_id)
+                                <div>
+                                    @if (@Request.Url.Segments[3] != "-1")
+                                    {
+                                        <div class="form__group">
+                                            @Html.LabelFor(m => m.exam_id, "Id:")
+                                            @Html.TextBoxFor(m => m.exam_id, new { @class = "form__control", @autofocus = "autofocus", @disabled = "true" })
+                                        </div>
+                                    }
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.code, "Test Code:")
+                                        @Html.TextBoxFor(m => m.code, new { @id = "codeText", @class = "form__control", @placeholder = "Code" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.code)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.test_time, "Test time:")
+                                        @Html.TextBoxFor(m => m.test_time, new { @class = "form__control", @placeholder = "hh:mm:ss" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.test_time)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.num_of_ques, "Number of question:")
+                                        @Html.TextBoxFor(m => m.num_of_ques, new { type = "number", @class = "form__control", @placeholder = "Number of question part 1" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.num_of_ques)</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__group-action">
+                                @Html.ActionLink("Back", "TestList", "Admin", null, new { @class = "btn__normal mr-10" })
+                                <button type="submit" class="btn__save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
