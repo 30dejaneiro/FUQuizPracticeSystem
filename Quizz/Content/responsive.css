@@ -1,0 +1,42 @@
+﻿/*tablet*/
+.header__list-icon-wrapper {
+    display: none;
+}
+
+.small-logo {
+    display: none;
+}
+
+@media only screen and (max-width: 860px) {
+    .grid__col-2 {
+        display: none;
+    }
+
+    .grid__col-10 {
+        width: 100%;
+    }
+
+    .header__nav-list {
+        display: none
+    }
+
+    .header__list-icon-wrapper {
+        display: block;
+    }
+
+    .header__list-icon {
+        font-size: 24px;
+    }
+
+    .big-logo{
+        display: none;
+    }
+
+    .small-logo {
+        display: block;
+    }
+
+    .practice__content-img{
+        width: 200px
+    }
+}
