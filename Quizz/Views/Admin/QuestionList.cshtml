@@ -10,25 +10,9 @@
             <div class="sub-nav">
                 <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
                 <ul class="sub-nav__list">
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Students", "Index", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Subjects", "SubjectList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
                     <li class="sub-nav__item sub-nav__item--active">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
             </div>
@@ -56,7 +40,7 @@
                                 <th>B</th>
                                 <th>C</th>
                                 <th>D</th>
-                                <th>Type</th>
+                                <th>Bank</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -75,19 +59,19 @@
                             }
                             else
                             {
-                                foreach (var v in (ViewBag.listQuestion as PagedList.IPagedList<Quizz.Models.EF.Question>))
+                                foreach (var v in (ViewBag.listQuestion as PagedList.IPagedList<Quizz.Models.ViewModel.QuestionViewModel>))
                                 {
-                                    <tr id="question@{@v.question_id}">
-                                        <td>@v.question_id</td>
-                                        <td>@v.content</td>
+                                    <tr id="question@{@v.QuestionId}">
+                                        <td>@v.QuestionId</td>
+                                        <td style="text-align:left">@v.QuestionContent</td>
                                         <td>@v.A</td>
                                         <td>@v.B</td>
                                         <td>@v.C</td>
                                         <td>@v.D</td>
-                                        <td>@(v.type_ques == 0 ? "Practice" : "Test")</td>
+                                        <td>@v.BankName</td>
                                         <td>
-                                            <a href="@Url.Action("QuestionDetail", "Admin", new { id = v.question_id })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
-                                            <a onclick="checkDelete('@v.question_id', 'question')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
+                                            <a href="@Url.Action("QuestionDetail", "Admin", new { id = v.QuestionId })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                            <a onclick="checkDelete('@v.QuestionId', 'question')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -97,7 +81,7 @@
                 </div>
 
                 <div class="nav-content__footer">
-                    @Html.PagedListPager(ViewBag.listQuestion as PagedList.IPagedList<Quizz.Models.EF.Question>, page => Url.Action("QuestionList", new { page }))
+                    @Html.PagedListPager(ViewBag.listQuestion as PagedList.IPagedList<Quizz.Models.ViewModel.QuestionViewModel>, page => Url.Action("QuestionList", new { page }))
                 </div>
             </div>
         </div>
