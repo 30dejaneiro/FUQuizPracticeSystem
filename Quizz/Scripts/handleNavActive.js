@@ -6,7 +6,7 @@ headerItem.forEach((item) => {
     let path = window.location.pathname.split('/')[1];
     if (path === 'Home') {
         tabIndex = 0;
-    } else if (path == "Test") {
+    } else if (path == "Subject") {
         tabIndex = 1;
     } else {
         tabIndex = 2;

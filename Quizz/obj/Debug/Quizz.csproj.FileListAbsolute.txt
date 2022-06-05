@@ -61,130 +61,66 @@ C:\Users\AD\OneDrive\Máy tính\Quizz\Quizz\bin\Antlr3.Runtime.pdb
 C:\Users\AD\OneDrive\Máy tính\Quizz\Quizz\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\AD\OneDrive\Máy tính\Quizz\Quizz\obj\Debug\Quizz.dll
 C:\Users\AD\OneDrive\Máy tính\Quizz\Quizz\obj\Debug\Quizz.pdb
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\obj\Debug\Quizz.csproj.AssemblyReference.cache
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\obj\Debug\Quizz.csproj.CoreCompileInputs.cache
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\obj\Debug\Quizz.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\obj\Debug\Quizz.pdb
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Quizz.dll.config
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Quizz.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Quizz.pdb
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\csc.exe
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\csc.exe.config
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\csc.rsp
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\csi.exe
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\csi.rsp
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CSharp.Core.targets
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.VisualBasic.Core.targets
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\System.AppContext.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\System.Collections.Immutable.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\System.Diagnostics.StackTrace.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\System.IO.FileSystem.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\System.IO.FileSystem.Primitives.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\System.Reflection.Metadata.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\vbc.exe
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\vbc.exe.config
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\vbc.rsp
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\VBCSCompiler.exe
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\roslyn\VBCSCompiler.exe.config
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Antlr3.Runtime.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\EntityFramework.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\EntityFramework.SqlServer.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Newtonsoft.Json.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\PagedList.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\PagedList.Mvc.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Helpers.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Mvc.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Optimization.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Razor.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Deployment.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.WebPages.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Razor.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\WebGrease.dll
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\EntityFramework.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\EntityFramework.SqlServer.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\PagedList.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\PagedList.Mvc.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Helpers.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Mvc.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Optimization.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.Razor.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.WebPages.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Deployment.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Razor.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Newtonsoft.Json.xml
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Antlr3.Runtime.pdb
-C:\Users\AD\OneDrive\Máy tính\SWP\AnhNT\Quizz\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\Quizz.dll.config
-F:\SWP\SWP\AnhNT\Quizz\bin\Quizz.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\Quizz.pdb
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\csc.exe
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\csc.exe.config
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\csc.rsp
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\csi.exe
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\csi.rsp
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.CSharp.Core.targets
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\Microsoft.VisualBasic.Core.targets
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\System.AppContext.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\System.Collections.Immutable.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\System.Diagnostics.StackTrace.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\System.IO.FileSystem.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\System.IO.FileSystem.Primitives.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\System.Reflection.Metadata.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\vbc.exe
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\vbc.exe.config
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\vbc.rsp
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\VBCSCompiler.exe
-F:\SWP\SWP\AnhNT\Quizz\bin\roslyn\VBCSCompiler.exe.config
-F:\SWP\SWP\AnhNT\Quizz\bin\Antlr3.Runtime.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\EntityFramework.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\EntityFramework.SqlServer.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\Microsoft.Web.Infrastructure.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\Newtonsoft.Json.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\PagedList.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\PagedList.Mvc.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Helpers.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Mvc.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Optimization.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Razor.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Deployment.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.WebPages.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Razor.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\WebGrease.dll
-F:\SWP\SWP\AnhNT\Quizz\bin\EntityFramework.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\EntityFramework.SqlServer.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\PagedList.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\PagedList.Mvc.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Helpers.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Mvc.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Optimization.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.Razor.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.WebPages.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Deployment.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\System.Web.WebPages.Razor.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\Newtonsoft.Json.xml
-F:\SWP\SWP\AnhNT\Quizz\bin\Antlr3.Runtime.pdb
-F:\SWP\SWP\AnhNT\Quizz\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-F:\SWP\SWP\AnhNT\Quizz\obj\Debug\Quizz.csproj.AssemblyReference.cache
-F:\SWP\SWP\AnhNT\Quizz\obj\Debug\Quizz.csproj.CoreCompileInputs.cache
-F:\SWP\SWP\AnhNT\Quizz\obj\Debug\Quizz.csproj.CopyComplete
-F:\SWP\SWP\AnhNT\Quizz\obj\Debug\Quizz.dll
-F:\SWP\SWP\AnhNT\Quizz\obj\Debug\Quizz.pdb
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Quizz.dll.config
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Quizz.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Quizz.pdb
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\csc.exe
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\csc.exe.config
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\csc.rsp
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\csi.exe
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\csi.rsp
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\System.AppContext.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\vbc.exe
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\vbc.exe.config
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\vbc.rsp
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\VBCSCompiler.exe
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Antlr3.Runtime.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\EntityFramework.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\EntityFramework.SqlServer.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Newtonsoft.Json.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\PagedList.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\PagedList.Mvc.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Helpers.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Mvc.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Optimization.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Razor.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.WebPages.Deployment.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.WebPages.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.WebPages.Razor.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\WebGrease.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\EntityFramework.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\EntityFramework.SqlServer.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\PagedList.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\PagedList.Mvc.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Helpers.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Mvc.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Optimization.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.Razor.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.WebPages.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.WebPages.Deployment.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\System.Web.WebPages.Razor.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Newtonsoft.Json.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Antlr3.Runtime.pdb
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\obj\Debug\Quizz.csproj.AssemblyReference.cache
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\obj\Debug\Quizz.csproj.CoreCompileInputs.cache
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\obj\Debug\Quizz.dll
+C:\Users\AD\OneDrive\Máy tính\SWP\TrungDK\Quizz\obj\Debug\Quizz.pdb
