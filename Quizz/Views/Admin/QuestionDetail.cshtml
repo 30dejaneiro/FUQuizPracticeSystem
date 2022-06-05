@@ -1,4 +1,4 @@
-﻿@model Quizz.Models.ViewModel.QuestionSoundViewModel
+﻿@model Quizz.Models.ViewModel.QuestionViewModel
 @{
     ViewBag.Title = "Question Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,25 +10,9 @@
             <div class="sub-nav">
                 <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
                 <ul class="sub-nav__list">
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Students", "Index", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Subjects", "SubjectList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
                     <li class="sub-nav__item sub-nav__item--active">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
             </div>
@@ -69,12 +53,8 @@
                                         @Html.TextAreaFor(m => m.QuestionContent, new { @class = "form__control", @placeholder = "Question", @autofocus = "autofocus", @rows = "11" })
                                     </div>
                                     <div class="form__group">
-                                        @Html.LabelFor(m => m.LevelId, "Levels:")
-                                        @Html.DropDownListFor(m => m.LevelId, new SelectList(ViewBag.listLevel, "level_id", "name"), null, new { @class = "form__control" })
-                                    </div>
-                                    <div class="form__group">
-                                        @Html.LabelFor(m => m.LevelId, "Subjects:")
-                                        @Html.DropDownListFor(m => m.SubjectId, new SelectList(ViewBag.listSubject, "subject_id", "subject_name"), null, new { @class = "form__control" })
+                                        @Html.LabelFor(m => m.BankId, "Bank:")
+                                        @Html.DropDownListFor(m => m.BankId, new SelectList(ViewBag.listBank, "bank_id", "bank_name"), null, new { @class = "form__control" })
                                     </div>
                                 </div>
                                 <div>
@@ -97,10 +77,6 @@
                                     <div class="form__group">
                                         @Html.LabelFor(m => m.Answer, "Answer:")
                                         @Html.DropDownListFor(m => m.Answer, new List<SelectListItem> { new SelectListItem { Value = "A", Text = "A" }, new SelectListItem { Value = "B", Text = "B" }, new SelectListItem { Value = "C", Text = "C" }, new SelectListItem { Value = "D", Text = "D" } }, null, new { @class = "form__control" })
-                                    </div>
-                                    <div class="form__group">
-                                        @Html.LabelFor(m => m.Note, "Type of question:")
-                                        @Html.DropDownListFor(m => m.Note, new List<SelectListItem> { new SelectListItem { Value = "0", Text = "Practice" }, new SelectListItem { Value = "1", Text = "Test" } }, null, new { @class = "form__control" })
                                     </div>
                                 </div>
                             </div>

@@ -2,14 +2,15 @@
 const practiceQuestion = [...$(".practice__ques")];
 const countDown = $("#countDown");
 const lastButton = [...$(".test__ques_action")];
-const listAudio = [...$("audio")];
 const numberTest = $("#numberTest");
+const viewResut = $("#viewResut");
 let lastNumber = 0;
 let totalQuestion = $(".practice__ques").last()[0].classList[1].slice(4);
 
 var result = [];
 
 let element = [];
+
 for (let index = 0; index < totalQuestion; index++) {
     element.push(`<div id="chooseQues${index + 1}" class="test__question-wrapper">
                         <button class="test__question-button" onclick="changeQuestion(${index + 1})">${index + 1}</button></div>`);
@@ -18,8 +19,11 @@ for (let index = 0; index < totalQuestion; index++) {
 if (totalQuestion > 70) {
     listQuestion.css("height", "77vh");
 }
-
-lastButton[lastButton.length - 1].style.display = "none"
+if (viewResut.length == 0) {
+    lastButton[lastButton.length - 1].style.display = "none"
+} else {
+    viewResut.css("display", "flex");
+}
 
 listQuestion.html(element.join``);
 
@@ -49,6 +53,11 @@ function changeQuestion(number) {
 
 function nextTestQues(number) {
     changeQuestion(number++);
+}
+
+function showResult(answer) {
+    const answerBlock = $(".ques" + (answer - 1) + " #answerBlock");
+    answerBlock.css("display", "block");
 }
 
 
@@ -101,28 +110,30 @@ function submitTest(code, timeOut) {
     }
 }
 
-let timer2 = countDown.html();
-let interval = setInterval(() => {
-    var timer = timer2.split(':');
-    var hour = parseInt(timer[0], 10);
-    var minutes = parseInt(timer[1], 10);
-    var seconds = parseInt(timer[2], 10);
-    --seconds;
-    minutes = (seconds < 0) ? --minutes : minutes;
-    hour = (minutes < 0) ? --hour : hour;
-    if (seconds == 0 && minutes == 0 && hour == 0) {
-        clearInterval(interval);
-        let code = window.location.search;
-        submitTest(code.slice(6), true);
-    };
-    seconds = (seconds < 0) ? 59 : seconds;
-    seconds = (seconds < 10) ? '0' + seconds : seconds;
-    minutes = (minutes < 0) ? 59 : minutes;
-    minutes = (minutes < 10) ? '0' + minutes : minutes;
-    countDown.html(hour + ':' + minutes + ':' + seconds);
-    timer2 = hour + ':' + minutes + ':' + seconds;
+if (countDown.length > 0) {
+    let timer2 = countDown.html();
+    let interval = setInterval(() => {
+        var timer = timer2.split(':');
+        var hour = parseInt(timer[0], 10);
+        var minutes = parseInt(timer[1], 10);
+        var seconds = parseInt(timer[2], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        hour = (minutes < 0) ? --hour : hour;
+        if (seconds == 0 && minutes == 0 && hour == 0) {
+            clearInterval(interval);
+            let code = window.location.search;
+            submitTest(code.slice(6), true);
+        };
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        minutes = (minutes < 0) ? 59 : minutes;
+        minutes = (minutes < 10) ? '0' + minutes : minutes;
+        countDown.html(hour + ':' + minutes + ':' + seconds);
+        timer2 = hour + ':' + minutes + ':' + seconds;
+    }, 1000);
+}
 
-}, 1000);
 
 
 
