@@ -12,45 +12,56 @@ namespace Quizz.Controllers
 {
     public class AdminController : BaseController
     {
-        public ActionResult SubjectList(int? page, string search)
+        // GET: Admin
+        public ActionResult Index(int? page, string search)
         {
             var iplAdmin = new AdminDAO();
-            ViewBag.listSubjects = iplAdmin.PageSubject(page, search);
+            ViewBag.listStu = iplAdmin.PageStudent(page, search);
             return View();
         }
 
-        public ActionResult SubjectDetail(int? id)
+        [HttpGet]
+        public ActionResult StudentDetail(string id)
         {
             var iplAdmin = new AdminDAO();
-            var subject = iplAdmin.GetSubjectById(id);
-            return View(subject);
+            var student = iplAdmin.GetStudentById(id);
+            return View(student);
         }
 
         [HttpPost]
-        public ActionResult SubjectDetail(Subject s)
+        public ActionResult StudentSave(Account st)
         {
-            var iplAdmin = new AdminDAO();
-            iplAdmin.SubjectAOU(s, s.subject_id);
-            SetAlert(s.subject_id == 0 ? "Create success!!!" : "Update success!!!", "success");
-            return RedirectToAction(s.subject_id == 0 ? "SubjectList" : "SubjectDetail", "Admin", new { id = s.subject_id == 0 ? -1 : s.subject_id });
+            AdminDAO admin = new AdminDAO();
+            bool check = admin.SaveOrUpdate(st, st.account_id);
+            if (check == true)
+            {
+                SetAlert(st.account_id == null ? "Create success!!!" : "Update success!!!", "success");
+            }
+            else
+            {
+                SetAlert(st.account_id == null ? "Create fail!!!" : "Update fail!!!", "error");
+            }
+            return RedirectToAction(st.account_id == null ? "Index" : "StudentDetail", "Admin", new { id = st.account_id ?? "" });
         }
 
         [HttpPost]
-        public JsonResult DeleteSubject(int id)
+        public JsonResult DeleteStudent(string id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
             {
-                try
+                var check = from q in db.Accounts where q.account_id == id select q;
+                var check1 = from s in db.Scores where s.account_id == id select s;
+                if (check != null && check1 != null)
                 {
-                    var check = from q in db.Subjects where q.subject_id == id select q;
-                    db.Subjects.Remove(check.FirstOrDefault());
+                    db.Accounts.Remove(check.FirstOrDefault());
+                    db.Scores.Remove(check1.FirstOrDefault());
                     db.SaveChanges();
                     SetAlert("Delete successfully!", "success");
                     return Json(new { mess = true });
                 }
-                catch (Exception)
+                else
                 {
-                    SetAlert("Delete failture! Please delete all bank and question belong this subject", "error");
+                    SetAlert("Delete failt!!!", "error");
                     return Json(new { mess = false });
                 }
             }

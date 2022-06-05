@@ -16,43 +16,52 @@ namespace Quizz.Models.DAO
             db = new QuizzDbContext();
         }
 
-        public IPagedList<Subject> PageSubject(int? page, string search)
+        public IPagedList<Account> PageStudent(int? page, string search)
         {
             int pageSize = 5;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            var obj = from s in db.Subjects select s;
+            var obj = from a in db.Accounts select a;
             if (!String.IsNullOrEmpty(search))
             {
-                obj = obj.Where(p => p.subject_name.Contains(search));
+                obj = obj.Where(p => p.full_name.Contains(search));
             }
-            return obj.OrderBy(m => m.subject_id).ToPagedList(pageIndex, pageSize);
+            return obj.OrderBy(m => m.account_id).ToPagedList(pageIndex, pageSize);
         }
 
-        public Subject GetSubjectById(int? id)
+        public Account GetStudentById(string roleNum)
         {
-            var obj = from s in db.Subjects where s.subject_id == id select s;
+            var obj = from a in db.Accounts where a.account_id == roleNum select a;
             return obj.FirstOrDefault();
         }
 
-        public void SubjectAOU(Subject s, int id)
+        public bool SaveOrUpdate(Account st, string id)
         {
-            DateTime localDate = DateTime.Now;
-            if (id == 0)
+            var totalStudent = (from row in db.Accounts select row).Count();
+            if (id == null)
             {
-                Subject t = new Subject()
+                Account a = new Account
                 {
-                    subject_name = s.subject_name
+                    account_id = "Ms00" + (totalStudent + 1),
+                    role = st.role,
+                    gender = st.gender,
+                    dob = st.dob,
+                    username = st.username,
+                    password = st.password,
+                    full_name = st.full_name
                 };
-                db.Subjects.Add(t);
-                db.SaveChanges();
+                db.Accounts.Add(a);
             }
             else
             {
-                var obj = (from a in db.Subjects where a.subject_id == id select a).FirstOrDefault();
-                obj.subject_name = s.subject_name;
+                var obj = (from a in db.Accounts where a.account_id.Equals(id) select a).FirstOrDefault();
+                obj.full_name = st.full_name;
+                obj.dob = st.dob;
+                obj.gender = st.gender;
+                obj.role = st.role;
             }
             db.SaveChanges();
+            return true;
         }
     }
 }
