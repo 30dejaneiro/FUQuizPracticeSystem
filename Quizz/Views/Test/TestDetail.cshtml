@@ -1,0 +1,101 @@
+﻿@{
+    ViewBag.Title = "Test Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int count = 1;
+    var time = ViewBag.testTime;
+}
+
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-2">
+            <div class="sub-nav">
+                <h2 class="sub-nav__title" id="countDown">@time</h2>
+                <div id="listQuestion">
+                </div>
+            </div>
+        </div>
+        <div class="grid__col-10">
+            <div class="nav-content__wrapper">
+                <div class="nav-content__header">
+                    <div class="nav-content__action">
+                    </div>
+                </div>
+                <div class="practice__container" id="practiceForm">
+                    @foreach (var q in ViewBag.listQuestion as IEnumerable<Quizz.Models.ViewModel.QuestionViewModel>)
+                    {
+                        <div class="practice__ques ques@(count)">
+                            <div style="display: flex;flex-direction: column;overflow-y:auto">
+                                <div class="test__ques">
+                                    <div style="display: flex;align-items: center;" id="@{@q.QuestionId}">
+                                        <h1 class="practice__content-title">Question @(count++) : </h1>
+                                        @if (q.QuestionContent != null)
+                                        {
+                                            <span class="practice__content-question">@q.QuestionContent</span>
+                                        }
+                                    </div>
+                                    <ul class="practice__answer-list">
+                                        @if (q.A != null)
+                                        {
+                                            <li class="practice__answer">
+                                                <label id="ques@{@q.QuestionId}A" class="practice__answer-wrapper">
+                                                    <input class="practice__answer-choose" type="radio" name="question@{@q.QuestionId}" value="A" onchange="handleChange(this, '@q.QuestionId');" />
+                                                    <strong>A</strong>
+                                                </label>
+                                                <span class="practice__answer-content" data-part="1">@q.A</span>
+                                            </li>
+                                        }
+                                        @if (q.B != null)
+                                        {
+                                            <li class="practice__answer">
+                                                <label id="ques@{@q.QuestionId}B" class="practice__answer-wrapper">
+                                                    <input class="practice__answer-choose" type="radio" name="question@{@q.QuestionId}" value="B" onchange="handleChange(this, '@q.QuestionId');" />
+                                                    <strong>B</strong>
+                                                </label>
+                                                <span class="practice__answer-content" data-part="1">@q.B</span>
+                                            </li>
+                                        }
+                                        @if (q.C != null)
+                                        {
+                                            <li class="practice__answer">
+                                                <label id="ques@{@q.QuestionId}C" class="practice__answer-wrapper">
+                                                    <input class="practice__answer-choose" type="radio" name="question@{@q.QuestionId}" value="C" onchange="handleChange(this, '@q.QuestionId');" />
+                                                    <strong>C</strong>
+                                                </label>
+                                                <span class="practice__answer-content" data-part="1">@q.C</span>
+                                            </li>
+                                        }
+                                        @if (q.D != null)
+                                        {
+                                            <li class="practice__answer">
+                                                <label id="ques@{@q.QuestionId}D" class="practice__answer-wrapper">
+                                                    <input class="practice__answer-choose" type="radio" name="question@{@q.QuestionId}" value="D" onchange="handleChange(this, '@q.QuestionId');" />
+                                                    <strong>D</strong>
+                                                </label>
+                                                <span class="practice__answer-content" data-part="1">@q.D</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="test__ques_action">
+                                <button class="btn btn__second" style="cursor: pointer; width: 200px; margin: 0 20px" onclick="nextTestQues(@(count))">Next</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="nav-content__footer">
+                    <div class="practice__ques_action">
+                        <button type="submit" class="btn btn__second" style="cursor: pointer; width: 200px" onClick="submitTest('@Request.QueryString["code"]',false)">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<Script src="~/Scripts/renderQuestion.js"></Script>
+<Script src="~/Scripts/renderTest.js"></Script>
+<Script>
+    function zoomImage(src) {
+        src.classList.toggle("toggle--img");
+    }
+</Script>

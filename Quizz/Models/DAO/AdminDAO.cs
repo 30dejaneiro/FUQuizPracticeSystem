@@ -16,80 +16,43 @@ namespace Quizz.Models.DAO
             db = new QuizzDbContext();
         }
 
-        public IPagedList<QuestionViewModel> PageQuestion(int? page, string search)
+        public IPagedList<Subject> PageSubject(int? page, string search)
         {
             int pageSize = 5;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            var obj = from l in db.Questions
-                      join b in db.BankQuestions on l.bank_id equals b.bank_id
-                      orderby l.question_id descending
-                      select new QuestionViewModel()
-                      {
-                          QuestionId = l.question_id,
-                          QuestionContent = l.content,
-                          A = l.A,
-                          B = l.B,
-                          C = l.C,
-                          D = l.D,
-                          Answer = l.answer,
-                          BankName = b.bank_name
-                      }; ;
+            var obj = from s in db.Subjects select s;
             if (!String.IsNullOrEmpty(search))
             {
-                obj = (obj.Where(p => p.QuestionContent.Contains(search)));
+                obj = obj.Where(p => p.subject_name.Contains(search));
             }
-            return obj.ToPagedList(pageIndex, pageSize);
+            return obj.OrderBy(m => m.subject_id).ToPagedList(pageIndex, pageSize);
         }
 
-
-        public QuestionViewModel GetQuestionById(int id)
+        public Subject GetSubjectById(int? id)
         {
-            var obj = from l in db.Questions
-                      where l.question_id == id
-                      select new QuestionViewModel()
-                      {
-                          QuestionId = l.question_id,
-                          QuestionContent = l.content,
-                          A = l.A,
-                          B = l.B,
-                          C = l.C,
-                          D = l.D,
-                          Answer = l.answer,
-                          BankId = l.bank_id
-                      };
+            var obj = from s in db.Subjects where s.subject_id == id select s;
             return obj.FirstOrDefault();
         }
 
-        public bool QuestionAOU(QuestionViewModel lp)
+        public void SubjectAOU(Subject s, int id)
         {
-            if (lp.QuestionId == null)
+            DateTime localDate = DateTime.Now;
+            if (id == 0)
             {
-                Question q = new Question()
+                Subject t = new Subject()
                 {
-                    content = lp.QuestionContent,
-                    A = lp.A,
-                    B = lp.B,
-                    C = lp.C,
-                    D = lp.D,
-                    answer = lp.Answer,
-                    bank_id = lp.BankId
+                    subject_name = s.subject_name
                 };
-                db.Questions.Add(q);
+                db.Subjects.Add(t);
+                db.SaveChanges();
             }
             else
             {
-                var obj = (from a in db.Questions where a.question_id == lp.QuestionId select a).FirstOrDefault();
-                obj.content = lp.QuestionContent;
-                obj.A = lp.A;
-                obj.B = lp.B;
-                obj.C = lp.C;
-                obj.D = lp.D;
-                obj.answer = lp.Answer;
-                obj.bank_id = lp.BankId;
+                var obj = (from a in db.Subjects where a.subject_id == id select a).FirstOrDefault();
+                obj.subject_name = s.subject_name;
             }
             db.SaveChanges();
-            return true;
         }
     }
 }

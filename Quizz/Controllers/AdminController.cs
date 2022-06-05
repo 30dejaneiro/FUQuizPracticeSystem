@@ -12,55 +12,45 @@ namespace Quizz.Controllers
 {
     public class AdminController : BaseController
     {
-        public ActionResult QuestionList(int? page, string search)
+        public ActionResult SubjectList(int? page, string search)
         {
             var iplAdmin = new AdminDAO();
-            ViewBag.listQuestion = iplAdmin.PageQuestion(page, search);
+            ViewBag.listSubjects = iplAdmin.PageSubject(page, search);
             return View();
         }
 
-        [HttpGet]
-        public ActionResult QuestionDetail(int id)
+        public ActionResult SubjectDetail(int? id)
         {
             var iplAdmin = new AdminDAO();
-            var iplBank = new BankDAO();
-            var lecture = iplAdmin.GetQuestionById(id);
-            ViewBag.listBank = iplBank.GetAllBanks();
-            return View(lecture);
+            var subject = iplAdmin.GetSubjectById(id);
+            return View(subject);
         }
 
         [HttpPost]
-        public ActionResult QuestionAOU(QuestionViewModel qs)
+        public ActionResult SubjectDetail(Subject s)
         {
             var iplAdmin = new AdminDAO();
-            bool check = iplAdmin.QuestionAOU(qs);
-            if (check == true)
-            {
-                SetAlert(qs.QuestionId == null ? "Create success!!!" : "Update success!!!", "success");
-            }
-            else
-            {
-                SetAlert(qs.QuestionId == null ? "Create fail!!!" : "Update fail!!!", "error");
-            }
-            return RedirectToAction(qs.QuestionId == null ? "QuestionList" : "QuestionDetail", "Admin", new { id = qs.QuestionId == null ? -1 : qs.QuestionId });
+            iplAdmin.SubjectAOU(s, s.subject_id);
+            SetAlert(s.subject_id == 0 ? "Create success!!!" : "Update success!!!", "success");
+            return RedirectToAction(s.subject_id == 0 ? "SubjectList" : "SubjectDetail", "Admin", new { id = s.subject_id == 0 ? -1 : s.subject_id });
         }
 
         [HttpPost]
-        public JsonResult DeleteQuestion(int id)
+        public JsonResult DeleteSubject(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
             {
-                var check = from q in db.Questions where q.question_id == id select q;
-                if (check != null)
+                try
                 {
-                    db.Questions.Remove(check.FirstOrDefault());
+                    var check = from q in db.Subjects where q.subject_id == id select q;
+                    db.Subjects.Remove(check.FirstOrDefault());
                     db.SaveChanges();
                     SetAlert("Delete successfully!", "success");
                     return Json(new { mess = true });
                 }
-                else
+                catch (Exception)
                 {
-                    SetAlert("Delete fail!!!", "error");
+                    SetAlert("Delete failture! Please delete all bank and question belong this subject", "error");
                     return Json(new { mess = false });
                 }
             }
