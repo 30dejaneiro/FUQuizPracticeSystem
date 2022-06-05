@@ -16,12 +16,6 @@ namespace Quizz.Models.DAO
             db = new QuizzDbContext();
         }
 
-        public List<Subject> GetAllSubjects()
-        {
-            var obj = from s in db.Subjects orderby s.subject_id select s;
-            return obj.ToList();
-        }
-
         public IPagedList<SubjectViewModel> SearchByPage(int? page, string search)
         {
             int pageSize = 5;
@@ -43,36 +37,5 @@ namespace Quizz.Models.DAO
             }
             return obj.OrderBy(m => m.SubjectId).ToPagedList(pageIndex, pageSize);
         }
-
-        public IPagedList<BankViewModel> GetAllBankQuestion(int? page, string search, int subject)
-        {
-            int pageSize = 5;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            var obj = from q in db.BankQuestions
-                      join s in db.Questions on q.bank_id equals s.bank_id into bq
-                      from s in bq.DefaultIfEmpty()
-                      where q.subject_id == subject
-                      group new { q, s } by new { s.bank_id, q.bank_name } into g
-                      select new BankViewModel()
-                      {
-                          BankId = g.FirstOrDefault().q.bank_id,
-                          BankName = g.Key.bank_name,
-                          AccountName = g.FirstOrDefault().q.account_id,
-                          TotalQues = g.Count(m => m.s.bank_id > 0),
-                      };
-            if (!String.IsNullOrEmpty(search))
-            {
-                obj = obj.Where(p => p.BankName.Contains(search));
-            }
-            return obj.OrderBy(m => m.BankId).ToPagedList(pageIndex, pageSize);
-        }
-
-        public string GetSubjectName(int subject)
-        {
-            var obj = from s in db.Subjects where s.subject_id == subject select s;
-            return obj.FirstOrDefault().subject_name;
-        }
-
     }
 }

@@ -19,12 +19,43 @@ namespace Toeic_Quizz.Controllers
             return View();
         }
 
-        public ActionResult SubjectDetail(int? page, string search, int subject)
+        public ActionResult ChangePassword()
         {
-            var iplSubject = new SubjectDAO();
-            ViewBag.listQues = iplSubject.GetAllBankQuestion(page, search, subject);
-            ViewBag.nameSubject = iplSubject.GetSubjectName(subject);
             return View();
         }
+
+        [HttpPost]
+        public ActionResult ChangePassword(AuthViewModel av)
+        {
+            using (QuizzDbContext db = new QuizzDbContext())
+            {
+                var id = Session["account"].ToString() ?? "";
+                db.Configuration.ValidateOnSaveEnabled = true;
+                var obj = db.Accounts.Where(s => s.account_id.Equals(id) && s.password.Equals(av.Oldpassword)).FirstOrDefault();
+                if (obj != null)
+                {
+                    if (av.Repassword == av.Newpassword)
+                    {
+                        obj.password = av.Repassword;
+                        db.SaveChanges();
+                        SetAlert("Change password successfully!", "success");
+                    }
+                    else if (av.Oldpassword == av.Newpassword)
+                    {
+                        SetAlert("New password can't equal old password!", "warning");
+                    }
+                    else
+                    {
+                        SetAlert("Re-new password is not equal password!", "warning");
+                    }
+                }
+                else
+                {
+                    SetAlert("Old password is not correct!", "warning");
+                }
+            }
+            return RedirectToAction("ChangePassword", "Home", new { id = Session["account"] });
+        }
     }
+
 }
