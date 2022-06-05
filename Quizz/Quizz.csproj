@@ -138,12 +138,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotFoundController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DAO\AdminDAO.cs" />
     <Compile Include="Models\DAO\BankDAO.cs" />
+    <Compile Include="Models\DAO\SubjectDAO.cs" />
     <Compile Include="Models\EF\Account.cs" />
     <Compile Include="Models\EF\BankQuestion.cs" />
     <Compile Include="Models\EF\Exam.cs" />
@@ -152,7 +154,8 @@
     <Compile Include="Models\EF\QuizzDbContext.cs" />
     <Compile Include="Models\EF\Score.cs" />
     <Compile Include="Models\EF\Subject.cs" />
-    <Compile Include="Models\ViewModel\QuestionViewModel.cs" />
+    <Compile Include="Models\ViewModel\BankViewModel.cs" />
+    <Compile Include="Models\ViewModel\SubjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +189,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <Content Include="Views\Admin\QuestionDetail.cshtml" />
-    <Content Include="Views\Admin\QuestionList.cshtml" />
+    <Content Include="Views\Admin\SubjectDetail.cshtml" />
+    <Content Include="Views\Admin\SubjectList.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\SubjectDetail.cshtml" />
     <Content Include="Views\NotFound\Index.cshtml" />
+    <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\Test\TestDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
