@@ -24,6 +24,7 @@
                         <ul>
                             @*  sub-nav-active-icon *@
                             <li class="header__list-moblie-item"><i class="fas fa-caret-right"></i>@Html.ActionLink("Subjects", "Index", "Home", null, new { @class = "" })</li>
+                            <li class="header__list-moblie-item"><i class="fas fa-caret-right"></i>@Html.ActionLink("Practice", "Part1", "Practice", new { part = 1 }, new { @class = "" })</li>
                             <li class="header__list-moblie-item"><i class="fas fa-caret-right"></i>@Html.ActionLink("Test", "Index", "Test", null, new { @class = "" })</li>
                         </ul>
                     </div>
@@ -33,6 +34,7 @@
                 </div>
                 <ul class="header__nav-list">
                     <li class="header__nav-item header__nav-active">@Html.ActionLink("Subjects", "Index", "Home", null, new { @class = "header__item-link" })</li>
+                    @*<li class="header__nav-item header__nav-active">@Html.ActionLink("Practice", "Part1", "Practice", new { part = 1 }, new { @class = "header__item-link" })</li>*@
                     <li class="header__nav-item header__nav-active">@Html.ActionLink("Test", "Index", "Test", null, new { @class = "header__item-link" })</li>
                 </ul>
 
@@ -63,7 +65,7 @@
                             else
                             {
                                 <li Class="auth__user-item">
-                                    @Html.ActionLink("Student profile", "ChangePassword", "Home", new { id = Session["account"].ToString() }, new { @class = "auth__user-link" })
+                                    @Html.ActionLink("Student profile", "UserProfile", "Home", new { id = Session["account"].ToString() }, new { @class = "auth__user-link" })
                                 </li>
                             }
                             <hr style="margin: 0;">

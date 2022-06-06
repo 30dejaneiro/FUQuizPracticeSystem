@@ -1,0 +1,81 @@
+﻿@model Quizz.Models.EF.Account
+@{
+    ViewBag.Title = "Student Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-2">
+            <div class="sub-nav">
+                <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
+                <ul class="sub-nav__list">
+                    <li class="sub-nav__item sub-nav__item--active">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("User Profile", "UserProfile", "Home", new { id = Session["account"].ToString()}, new { @class = "sub-nav__link text", @id = "defaultOpen" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Change password", "ChangePassword", "Home", new { id = Session["account"].ToString()}, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Scores", "Scores", "Home", new { id = Session["account"].ToString()}, new { @class = "sub-nav__link text" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid__col-10">
+            <!-- Student List -->
+            <div class="nav-content__wrapper" id="student">
+                <div class="nav-content__header">
+                    <div class="breadcrumb">
+                        @Html.ActionLink("Home", "Index", "Home", null, new { @class = "breadcrumb-link" })
+                        <span class="breadcrumb-separate"> > </span>
+                        <span class="breadcrumb-detail"></span>
+                        <span class="breadcrumb-detail">User Profile</span>
+                    </div>
+                </div>
+                @using (Html.BeginForm("ChangeProfile", "Home", FormMethod.Post))
+                {
+                    @Html.HiddenFor(m => m.account_id)
+                    <div class="nav-content__body-form">
+                        <div class="nav-content__table-save">
+                            <div style="display: flex; justify-content: space-evenly;width: 100%">
+                                <div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.account_id, "Student Id:")
+                                        @Html.TextBoxFor(m => m.account_id, new { @class = "form__control", @placeholder = "Student Id", @disabled = "true" })
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.full_name, "Full Name:")
+                                        @Html.TextBoxFor(m => m.full_name, new { @class = "form__control", @placeholder = "Full name", @autofocus = "autofocus" })
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.dob, "Date of birth:")
+                                        @Html.TextBoxFor(m => m.dob, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form__control", @autofocus = "autofocus" })
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.gender, "Gender:")
+                                        <div class="col-md-10" style="margin-top: 10px">
+                                            Male
+                                            @Html.RadioButtonFor(m => m.gender, true)
+                                            Female
+                                            @Html.RadioButtonFor(m => m.gender, false)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__group-action">
+                                @Html.ActionLink("Back", "Index", "Home", null, new { @class = "btn__normal mr-10" })
+                                <button type="submit" class="btn__save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
