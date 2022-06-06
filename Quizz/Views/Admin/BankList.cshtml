@@ -1,6 +1,6 @@
 ﻿@using PagedList.Mvc
 @{
-    ViewBag.Title = "Administrator";
+    ViewBag.Title = "Banks";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,7 +10,7 @@
             <div class="sub-nav">
                 <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
                 <ul class="sub-nav__list">
-                    <li class="sub-nav__item sub-nav__item--active">
+                    <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Students", "Index", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
@@ -18,7 +18,7 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Subjects", "SubjectList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item">
+                    <li class="sub-nav__item sub-nav__item--active">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Banks", "BankList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
@@ -38,52 +38,50 @@
             </div>
         </div>
         <div class="grid__col-10">
-            <!-- Student List -->
-            <div class="nav-content__wrapper" id="student">
+            <!-- Topic List -->
+            <div class="nav-content__wrapper">
                 <div class="nav-content__header">
-                    <h2 class="nav-content__title">Students</h2>
+                    <h2 class="nav-content__title">Banks</h2>
                     <div class="nav-content__action">
-                        <form class="search-form mr-10" asp-controller="Admin" asp-action="Index">
+                        <form class="search-form mr-10" asp-controller="Admin" asp-action="TopicDetail">
                             <input type="text" class="search-form__input" placeholder="Searching..." name="search">
                             <button class="search-form__btn"><i class="fas fa-search search-form__icon"></i></button>
                         </form>
-                        @Html.ActionLink("Add", "StudentDetail", "Admin", null, new { @class = "search-form__btn btn__second" })
+                        @Html.ActionLink("Add", "BankDetail", "Admin", new { id = -1 }, new { @class = "search-form__btn btn__second" })
                     </div>
                 </div>
                 <div class="nav-content__body">
-                    <table class="nav-content__table" id="table_id">
+                    <table class="nav-content__table">
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Gender</th>
-                                <th>Dob</th>
+                                <th>Created By</th>
+                                <th>Subject</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Enumerable.Count(ViewBag.listStu) == 0)
+                            @if (Enumerable.Count(ViewBag.listBank) == 0)
                             {
                                 <tr>
                                     <td></td>
-                                    <td></td>
                                     <td colspan="2"><span style="font-size: 2rem;height: 50px;display: block;line-height: 50px;">No data</span></td>
-                                    <td></td>
                                     <td></td>
                                 </tr>
                             }
                             else
                             {
-                                foreach (var a in (ViewBag.listStu as PagedList.IPagedList<Quizz.Models.EF.Account>))
+                                foreach (var a in (ViewBag.listBank as PagedList.IPagedList<Quizz.Models.ViewModel.BankViewModel>))
                                 {
-                                    <tr id="student@{@a.account_id}">
-                                        <td>@a.account_id</td>
-                                        <td>@a.full_name</td>
-                                        <td>@(a.gender == true ? "Male" : "Female")</td>
-                                        <td>@(a.dob.HasValue ? a.dob.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
+                                    <tr id="bank@{@a.BankId}">
+                                        <td>@a.BankId</td>
+                                        <td>@a.BankName</td>
+                                        <td>@a.AccountName</td>
+                                        <td>@a.Subjectname</td>
                                         <td>
-                                            <a href="@Url.Action("StudentDetail", "Admin", new { id = a.account_id })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
-                                            <a onclick="checkDelete('@a.account_id','student')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
+                                            <a href="@Url.Action("BankDetail", "Admin", new { id = a.BankId })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                            <a onclick="checkDelete('@a.BankId','bank')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -93,9 +91,10 @@
                 </div>
 
                 <div class="nav-content__footer">
-                    @Html.PagedListPager(ViewBag.listStu as PagedList.IPagedList<Quizz.Models.EF.Account>, page => Url.Action("Index", new { page }))
+                    @Html.PagedListPager(ViewBag.listBank as PagedList.IPagedList<Quizz.Models.ViewModel.BankViewModel>, page => Url.Action("BankList", new { page }))
                 </div>
             </div>
         </div>
     </div>
 </div>
+

@@ -24,6 +24,7 @@
                         <ul>
                             @*  sub-nav-active-icon *@
                             <li class="header__list-moblie-item"><i class="fas fa-caret-right"></i>@Html.ActionLink("Subjects", "Index", "Home", null, new { @class = "" })</li>
+                            <li class="header__list-moblie-item"><i class="fas fa-caret-right"></i>@Html.ActionLink("Practice", "Part1", "Practice", new { part = 1 }, new { @class = "" })</li>
                             <li class="header__list-moblie-item"><i class="fas fa-caret-right"></i>@Html.ActionLink("Test", "Index", "Test", null, new { @class = "" })</li>
                         </ul>
                     </div>
@@ -33,16 +34,58 @@
                 </div>
                 <ul class="header__nav-list">
                     <li class="header__nav-item header__nav-active">@Html.ActionLink("Subjects", "Index", "Home", null, new { @class = "header__item-link" })</li>
+                    @*<li class="header__nav-item header__nav-active">@Html.ActionLink("Practice", "Part1", "Practice", new { part = 1 }, new { @class = "header__item-link" })</li>*@
                     <li class="header__nav-item header__nav-active">@Html.ActionLink("Test", "Index", "Test", null, new { @class = "header__item-link" })</li>
                 </ul>
 
                 <div class="header__auth">
-                    <div class="auth__user">
-                        @Html.ActionLink("Sign Up", "SignUp", "Auth", null, new { @class = "auth__user-name" })
-                    </div>
-                    <div Class="auth__user">
-                        @Html.ActionLink("Sign In", "Login", "Auth", null, new { @class = "auth__user-name" })
-                    </div>
+                    @if (Session["account"] == null)
+                    {
+                        <div class="auth__user">
+                            @Html.ActionLink("Sign Up", "SignUp", "Auth", null, new { @class = "auth__user-name" })
+                        </div>
+                        <div Class="auth__user">
+                            @Html.ActionLink("Sign In", "Login", "Auth", null, new { @class = "auth__user-name" })
+                        </div>
+                    }
+                    else
+                    {
+                        <div Class="auth__user" id="authButton">
+                            <img src="~/Assets/Images/user.jpg" alt="user_img" Class="auth__user-img">
+                            <span Class="auth__user-name">@(@Session["fullName"] == null? Session["account"].ToString() : @Session["fullName"].ToString())</span>
+                        </div>
+
+                        <ul Class="auth__user-list">
+                            @if (Session["account"] != null && Session["account"].ToString() == "1")
+                            {
+                                <li Class="auth__user-item">
+                                    @Html.ActionLink("Dashboard", "Index", "Admin", null, new { @class = "auth__user-link" })
+                                </li>
+                            }
+                            else
+                            {
+                                <li Class="auth__user-item">
+                                    @Html.ActionLink("Student profile", "UserProfile", "Home", new { id = Session["account"].ToString() }, new { @class = "auth__user-link" })
+                                </li>
+                            }
+                            <hr style="margin: 0;">
+                            <li class="auth__user-item">
+                                @Html.ActionLink("Log Out", "LogOut", "Auth", null, new { @class = "auth__user-link" })
+                            </li>
+                        </ul>
+
+                        <script>
+                            const headerUserBtn = document.querySelector('#authButton');
+                            const headerUserCard = document.querySelector(".auth__user-list");
+                            headerUserBtn.addEventListener("click", () => {
+                                headerUserCard.classList.toggle("auth__user-open");
+                            });
+                            window.addEventListener("click", (e) => {
+                                if (e.target != headerUserBtn && !headerUserBtn.contains(e.target))
+                                    headerUserCard.classList.remove("auth__user-open");
+                            })
+                        </script>
+                    }
                 </div>
             </div>
         </header>

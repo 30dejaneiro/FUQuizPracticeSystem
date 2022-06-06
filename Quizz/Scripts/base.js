@@ -3,11 +3,9 @@
 function checkDelete(id, text) {
     switch (text) {
         case "student": deleteItem(id, text, "DeleteStudent", "Index"); break;
-        case "vocab": deleteItem(id, text, "DeleteVocab", "VocabList"); break;
-        case "lecture": deleteItem(id, text, "DeleteLecture", "LectureList"); break;
         case "question": deleteItem(id, text, "DeleteQuestion", "QuestionList"); break;
-        case "test": deleteItem(id, text, "DeleteTest", "TestList"); break;
-        case "topic": deleteItem(id, text, "DeleteTopic", "TopicList"); break;
+        case "subject": deleteItem(id, text, "DeleteSubject", "SubjectList"); break;
+        case "bank": deleteItem(id, text, "DeleteBank", "BankList"); break;
     }
 }
 
