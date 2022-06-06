@@ -1,0 +1,42 @@
+﻿@model Quizz.Models.ViewModel.AuthViewModel
+@{
+    ViewBag.Title = "Sign In Page";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+@using (Html.BeginForm("Login", "Auth", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="auth-form__container">
+        <div class="auth-form__header">
+            <h3 class="auth-form__heading">Sign In</h3>
+            @Html.ActionLink("Sign Up", "SignUp", "Auth", null, new { @class = "auth-form__switch-btn" })
+        </div>
+        <div class="success-message">
+            @if (ViewBag.Message != null)
+            {@ViewBag.Message}
+        </div>
+        <div class="error-message">
+            @if (ViewBag.ErrorMessage != null)
+            {@ViewBag.ErrorMessage}
+        </div>
+        <div class="auth-form__form">
+            <div class="auth-form__group">
+                @Html.TextBoxFor(m => m.Account.username, new { @class = "auth-form-input", @placeholder = "Username", @autofocus = "autofocus" })
+            </div>
+            <div class="auth-form__group">
+                @Html.TextBoxFor(m => m.Account.password, new { @type = "password", @class = "auth-form-input", @placeholder = "Password", @autofocus = "autofocus" })
+            </div>
+        </div>
+        <!--<div class="auth-form__aside">
+            <div class="auth-form__help-remember">-->
+                @*@Html.CheckBoxFor(m => m.Remember, new { @class = "auth-form__help-link auth-form__help-forgot" })
+                @Html.LabelFor(m => m.Remember)*@
+            <!--</div>-->
+           @* <a href="" class="auth-form__help-link auth-form__help-forgot">Forgot password?</a>*@
+        <!--</div>-->
+        <div class="auth-form__control">
+            <button type="submit" class="btn btn--primary ">Sign In</button>
+        </div>
+    </div>
+}

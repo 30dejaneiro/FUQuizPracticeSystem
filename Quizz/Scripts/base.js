@@ -4,7 +4,8 @@ function checkDelete(id, text) {
     switch (text) {
         case "student": deleteItem(id, text, "DeleteStudent", "Index"); break;
         case "question": deleteItem(id, text, "DeleteQuestion", "QuestionList"); break;
-        case "test": deleteItem(id, text, "DeleteTest", "TestList"); break;
+        case "subject": deleteItem(id, text, "DeleteSubject", "SubjectList"); break;
+        case "bank": deleteItem(id, text, "DeleteBank", "BankList"); break;
     }
 }
 

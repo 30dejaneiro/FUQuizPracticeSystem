@@ -11,27 +11,15 @@
                 <ul class="sub-nav__list">
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Students", "Index", "Admin", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("User Profile", "UserProfile", "Home", new { id = Session["account"].ToString() }, new { @class = "sub-nav__link text", @id = "defaultOpen" })
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Subjects", "SubjectList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Banks", "BankList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("Change password", "ChangePassword", "Home", new { id = Session["account"].ToString() }, new { @class = "sub-nav__link text" })
                     </li>
                     <li class="sub-nav__item sub-nav__item--active">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("Scores", "Scores", "Home", new { id = Session["account"].ToString() }, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
             </div>
@@ -48,7 +36,6 @@
                         <thead>
                             <tr>
                                 <th>Test Code</th>
-                                <th>Student Id</th>
                                 <th>Total Score</th>
                                 <th>Date Tested</th>
                             </tr>
@@ -70,7 +57,6 @@
                                 {
                                     <tr>
                                         <td>@v.TestCode</td>
-                                        <td>@v.AccountId</td>
                                         <td>@v.TotalScore</td>
                                         <td>@(v.DateTest.HasValue ? v.DateTest.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                                     </tr>

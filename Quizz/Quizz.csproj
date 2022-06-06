@@ -137,13 +137,16 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NotFoundController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DAO\AdminDAO.cs" />
     <Compile Include="Models\DAO\BankDAO.cs" />
+    <Compile Include="Models\DAO\SubjectDAO.cs" />
     <Compile Include="Models\EF\Account.cs" />
     <Compile Include="Models\EF\BankQuestion.cs" />
     <Compile Include="Models\EF\Exam.cs" />
@@ -152,7 +155,15 @@
     <Compile Include="Models\EF\QuizzDbContext.cs" />
     <Compile Include="Models\EF\Score.cs" />
     <Compile Include="Models\EF\Subject.cs" />
+    <Compile Include="Models\ViewModel\AuthViewModel.cs" />
+    <Compile Include="Models\ViewModel\BankViewModel.cs" />
+    <Compile Include="Models\ViewModel\ChangePassViewModel.cs" />
+    <Compile Include="Models\ViewModel\CheckPractice.cs" />
+    <Compile Include="Models\ViewModel\QuestionAnswer.cs" />
     <Compile Include="Models\ViewModel\QuestionViewModel.cs" />
+    <Compile Include="Models\ViewModel\ScoreTestViewModel.cs" />
+    <Compile Include="Models\ViewModel\StudentViewModel.cs" />
+    <Compile Include="Models\ViewModel\SubjectViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,9 +197,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\QuestionDetail.cshtml" />
     <Content Include="Views\Admin\QuestionList.cshtml" />
+    <Content Include="Views\Admin\ScoreList.cshtml" />
+    <Content Include="Views\Admin\StudentDetail.cshtml" />
+    <Content Include="Views\Admin\TestDetail.cshtml" />
+    <Content Include="Views\Admin\TestList.cshtml" />
+    <Content Include="Views\Admin\SubjectDetail.cshtml" />
+    <Content Include="Views\Admin\SubjectList.cshtml" />
+    <Content Include="Views\Auth\Login.cshtml" />
+    <Content Include="Views\Auth\SignUp.cshtml" />
+    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\SubjectDetail.cshtml" />
+    <Content Include="Views\Home\UserProfile.cshtml" />
     <Content Include="Views\NotFound\Index.cshtml" />
+    <Content Include="Views\Shared\_AuthLayout.cshtml" />
+    <Content Include="Views\Home\Scores.cshtml" />
+    <Content Include="Views\Home\BanksDetail.cshtml" />
+    <Content Include="Views\Admin\BankList.cshtml" />
+    <Content Include="Views\Admin\BankDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

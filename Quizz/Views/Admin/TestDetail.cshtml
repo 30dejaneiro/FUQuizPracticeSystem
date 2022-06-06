@@ -13,23 +13,27 @@
                 <ul class="sub-nav__list">
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Student List", "Index", "Admin", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("Students", "Index", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Topic List", "TopicList", "Admin", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("Topics", "TopicList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Question List", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("Banks", "BankList", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                     <li class="sub-nav__item sub-nav__item--active">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Test List", "TestList", "Admin", null, new { @id = "defaultOpen", @class = "sub-nav__link text" })
+                        @Html.ActionLink("Tests", "TestList", "Admin", null, new { @id = "defaultOpen", @class = "sub-nav__link text" })
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Score List", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
             </div>

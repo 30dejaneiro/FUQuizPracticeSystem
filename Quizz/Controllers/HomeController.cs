@@ -12,18 +12,25 @@ namespace Toeic_Quizz.Controllers
 {
     public class HomeController : BaseController
     {
-        public ActionResult Index(int? page,string search)
+        public ActionResult Index(int? page, string search)
         {
             var iplSubject = new SubjectDAO();
-            ViewBag.listSubject = iplSubject.SearchByPage(page,search);
+            ViewBag.listSubject = iplSubject.SearchByPage(page, search);
             return View();
         }
 
-        public ActionResult SubjectDetail(int subject)
+        public ActionResult SubjectDetail(int? page, string search, int subject)
         {
             var iplSubject = new SubjectDAO();
-            ViewBag.listQues = iplSubject.GetQuestionsBySubject(subject);
+            ViewBag.listQues = iplSubject.GetAllBankQuestion(page, search, subject);
             ViewBag.nameSubject = iplSubject.GetSubjectName(subject);
+            return View();
+        }
+        public ActionResult BanksDetail(int bank)
+        {
+            var iplSubject = new SubjectDAO();
+            ViewBag.listQues = iplSubject.GetQuestionsByBank(bank);
+            //ViewBag.nameSubject = iplSubject.GetSubjectName(subject);
             return View();
         }
 
