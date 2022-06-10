@@ -9,6 +9,8 @@ namespace Quizz.Models.ViewModel
     {
         public int? BankId { get; set; }
         public string BankName { get; set; }
+        public int? SubjectId { get; set; }
+        public string Subjectname { get; set; }
         public int TotalQues { get; set; }
         public string AccountName { get; set; }
     }
