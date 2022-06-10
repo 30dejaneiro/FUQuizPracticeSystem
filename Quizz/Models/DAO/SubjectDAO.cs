@@ -21,6 +21,31 @@ namespace Quizz.Models.DAO
             var obj = from s in db.Subjects orderby s.subject_id select s;
             return obj.ToList();
         }
+        public List<Account> GetAllAccount()
+        {
+            var obj = from s in db.Accounts select s;
+            return obj.ToList();
+        }
+
+        public IPagedList<ScoreTestViewModel> GetScoresByAccount(string id, int? page)
+        {
+            int pageSize = 5;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            var obj = from sc in db.Scores
+                      join t in db.Exams on sc.exam_id equals t.exam_id
+                      where sc.account_id == id
+                      orderby sc.account_id
+                      select new ScoreTestViewModel()
+                      {
+                          TestCode = t.code,
+                          AccountId = sc.account_id,
+                          TotalScore = sc.score1,
+                          DateTest = sc.date_test
+                      };
+            return obj.ToPagedList(pageIndex, pageSize);
+        }
 
         public IPagedList<SubjectViewModel> SearchByPage(int? page, string search)
         {
@@ -66,6 +91,13 @@ namespace Quizz.Models.DAO
                 obj = obj.Where(p => p.BankName.Contains(search));
             }
             return obj.OrderBy(m => m.BankId).ToPagedList(pageIndex, pageSize);
+        }
+
+
+        public List<Question> GetQuestionsByBank(int bank)
+        {
+            var obj = from q in db.Questions where q.bank_id == bank select q;
+            return obj.ToList();
         }
 
         public string GetSubjectName(int subject)
