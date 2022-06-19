@@ -51,13 +51,6 @@ namespace Toeic_Quizz.Controllers
             return View();
         }
 
-        public ActionResult Scores(string id, int? page)
-        {
-            var iplSubject = new SubjectDAO();
-            ViewBag.listScore = iplSubject.GetScoresByAccount(id, page);
-            return View();
-        }
-
         [HttpPost]
         public ActionResult ChangePassword(AuthViewModel av)
         {

@@ -427,14 +427,14 @@
     color: var(--white-color);
 }
 
-.test__ques_action{
+.test__ques_action {
     display: flex;
-    align-items:center;
+    align-items: center;
     justify-content: center;
 }
 
 /*List in Moblie and Tablet*/
-.header__list-icon-wrapper{
+.header__list-icon-wrapper {
     position: relative;
 }
 
@@ -452,47 +452,57 @@
     height: 35px;
     line-height: 35px;
     list-style: none;
-    border-bottom: 1px solid #000;
     font-size: 1.4rem;
+}
+
+.header__list-moblie-item:hover a {
+    background-color: var(--second-color);
+    color: #fff;
+}
+
+.header__list-moblie-item a {
+    color: var(--text-color);
+    width: 100%;
+    display: block;
+    font-size: 1.6rem;
     padding: 0 20px;
+    text-align: center;
 }
-
-
-.header__list-moblie-item i {
-    cursor: pointer;
-}
-    .header__list-moblie-item a {
-        color: var(--text-color);
-        margin-left: 10px;
-    }
-
-    .header__list-moblie-item:last-child {
-        border-bottom: none;
-    }
 
 /*Box*/
-.subject__list{
+.subject__list {
     height: 100%;
 }
-.subject-item__box{
+
+.subject-item__box {
     background-color: #ccc;
     width: 100%;
     padding: 10px;
     border-radius: 5px;
 }
 
-.subject-item__box-content{
+.subject-item__box-content {
     height: 100px;
 }
 
-    .subject-item__box-content h1{
+    .subject-item__box-content h1 {
         margin-bottom: 20px;
     }
 
-    .subject-item__box-ques {
-        background-color: var(--second-color);
-        padding: 5px 10px;
-        font-size: 1.4rem;
-        border-radius: 20px;
-        color: #fff;
+.subject-item__box-ques {
+    background-color: var(--second-color);
+    padding: 5px 10px;
+    font-size: 1.4rem;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.auth-form__back-btn {
+    font-size: 1.4rem;
+    color: #333;
+    cursor: pointer;
+}
+
+    .auth-form__back-btn:hover {
+        color: var(--second-color)
     }

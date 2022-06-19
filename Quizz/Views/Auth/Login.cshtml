@@ -30,13 +30,17 @@
         </div>
         <!--<div class="auth-form__aside">
             <div class="auth-form__help-remember">-->
-                @*@Html.CheckBoxFor(m => m.Remember, new { @class = "auth-form__help-link auth-form__help-forgot" })
-                @Html.LabelFor(m => m.Remember)*@
-            <!--</div>-->
-           @* <a href="" class="auth-form__help-link auth-form__help-forgot">Forgot password?</a>*@
+        @*@Html.CheckBoxFor(m => m.Remember, new { @class = "auth-form__help-link auth-form__help-forgot" })
+            @Html.LabelFor(m => m.Remember)*@
+        <!--</div>-->
+        @* <a href="" class="auth-form__help-link auth-form__help-forgot">Forgot password?</a>*@
         <!--</div>-->
         <div class="auth-form__control">
             <button type="submit" class="btn btn--primary ">Sign In</button>
+        </div>
+
+        <div style="width: 100%; text-align: right;">
+            @Html.ActionLink("Back", "Index", "Home", null, new { @class = "auth-form__back-btn" })
         </div>
     </div>
 }

@@ -60,7 +60,7 @@ namespace Quizz.Models.DAO
                       {
                           SubjectId = g.FirstOrDefault().s.subject_id,
                           SubjectName = g.FirstOrDefault().s.subject_name,
-                          TotalQues = g.Count(m => m.q.subject_id > 0),
+                          TotalBank = g.Count(m => m.q.subject_id > 0),
                       };
             if (!String.IsNullOrEmpty(search))
             {

@@ -13,13 +13,14 @@ namespace Quizz.Models.EF
         {
             BankQuestions = new HashSet<BankQuestion>();
             Scores = new HashSet<Score>();
+            Subjects = new HashSet<Subject>();
         }
 
         [Key]
         [StringLength(30)]
         public string account_id { get; set; }
 
-        [StringLength(50)]
+        [StringLength(50, ErrorMessage = "Full name can be more than 50.")]
         public string full_name { get; set; }
 
         public DateTime? dob { get; set; }
@@ -27,11 +28,11 @@ namespace Quizz.Models.EF
         public bool? gender { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(20, ErrorMessage = "Username can be more than 20.")]
         public string username { get; set; }
 
         [Required]
-        [StringLength(20)]
+        [StringLength(20, ErrorMessage = "Password can be more than 20.")]
         public string password { get; set; }
 
         public bool role { get; set; }
@@ -41,5 +42,8 @@ namespace Quizz.Models.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Score> Scores { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Subject> Subjects { get; set; }
     }
 }

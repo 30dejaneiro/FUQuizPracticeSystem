@@ -26,19 +26,10 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
                 </ul>
             </div>
         </div>
         <div class="grid__col-10">
-            <!-- Topic List -->
             <div class="nav-content__wrapper">
                 <div class="nav-content__header">
                     <h2 class="nav-content__title">Banks</h2>
@@ -56,8 +47,9 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Created By</th>
                                 <th>Subject</th>
+                                <th>Total Question</th>
+                                <th>Created By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -77,8 +69,9 @@
                                     <tr id="bank@{@a.BankId}">
                                         <td>@a.BankId</td>
                                         <td>@a.BankName</td>
-                                        <td>@a.AccountName</td>
                                         <td>@a.Subjectname</td>
+                                        <td>@a.TotalQues</td>
+                                        <td>@a.AccountName</td>
                                         <td>
                                             <a href="@Url.Action("BankDetail", "Admin", new { id = a.BankId })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
                                             <a onclick="checkDelete('@a.BankId','bank')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>

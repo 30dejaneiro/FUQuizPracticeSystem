@@ -25,19 +25,10 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
                 </ul>
             </div>
         </div>
         <div class="grid__col-10">
-            <!-- Topic List -->
             <div class="nav-content__wrapper">
                 <div class="nav-content__header">
                     <h2 class="nav-content__title">Subjects</h2>
@@ -55,6 +46,8 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Total Bank</th>
+                                <th>Created By</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -69,14 +62,16 @@
                             }
                             else
                             {
-                                foreach (var a in (ViewBag.listSubjects as PagedList.IPagedList<Quizz.Models.EF.Subject>))
+                                foreach (var a in (ViewBag.listSubjects as PagedList.IPagedList<Quizz.Models.ViewModel.SubjectViewModel>))
                                 {
-                                    <tr id="subject@{@a.subject_id}">
-                                        <td>@a.subject_id</td>
-                                        <td>@a.subject_name</td>
+                                    <tr id="subject@{@a.SubjectId}">
+                                        <td>@a.SubjectId</td>
+                                        <td>@a.SubjectName</td>
+                                        <td>@a.TotalBank</td>
+                                        <td>@a.AccountId</td>
                                         <td>
-                                            <a href="@Url.Action("SubjectDetail", "Admin", new { id = a.subject_id })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
-                                            <a onclick="checkDelete('@a.subject_id','subject')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
+                                            <a href="@Url.Action("SubjectDetail", "Admin", new { id = a.SubjectId })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                            <a onclick="checkDelete('@a.SubjectId','subject')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -86,7 +81,7 @@
                 </div>
 
                 <div class="nav-content__footer">
-                    @Html.PagedListPager(ViewBag.listSubjects as PagedList.IPagedList<Quizz.Models.EF.Subject>, page => Url.Action("SubjectList", new { page }))
+                    @Html.PagedListPager(ViewBag.listSubjects as PagedList.IPagedList<Quizz.Models.ViewModel.SubjectViewModel>, page => Url.Action("SubjectList", new { page }))
                 </div>
             </div>
         </div>

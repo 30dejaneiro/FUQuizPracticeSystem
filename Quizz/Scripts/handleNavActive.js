@@ -4,7 +4,7 @@ const headerNavActive = document.querySelector(".header__nav-active");
 headerItem.forEach((item) => {
     let tabIndex = 0;
     let path = window.location.pathname.split('/')[1];
-    if (path === '') {
+    if (path === 'Home' || path == '') {
         tabIndex = 0;
     } else if (path == "Test") {
         tabIndex = 1;

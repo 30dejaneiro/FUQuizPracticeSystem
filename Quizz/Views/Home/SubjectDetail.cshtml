@@ -29,9 +29,12 @@
                                         <h1>@v.BankName</h1>
                                         <span class="subject-item__box-ques">@v.TotalQues questions</span>
                                     </div>
-                                    <div>
-                                        @Html.ActionLink("Start", "BanksDetail", "Home", new { bank = v.BankId }, new { @class = "btn" })
-                                    </div>
+                                    @if (v.TotalQues != 0)
+                                    {
+                                        <div>
+                                            @Html.ActionLink("Start", "BanksDetail", "Home", new { bank = v.BankId }, new { @class = "btn" })
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         }
