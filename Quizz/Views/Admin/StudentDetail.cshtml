@@ -26,19 +26,10 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
-                    <li class="sub-nav__item">
-                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
-                    </li>
                 </ul>
             </div>
         </div>
         <div class="grid__col-10">
-            <!-- Student List -->
             <div class="nav-content__wrapper" id="student">
                 <div class="nav-content__header">
                     <div class="breadcrumb">
@@ -55,8 +46,9 @@
                         }
                     </div>
                 </div>
-                @using (Html.BeginForm("StudentSave", "Admin", FormMethod.Post))
+                @using (Html.BeginForm("StudentDetail", "Admin", FormMethod.Post))
                 {
+                    @Html.AntiForgeryToken()
                     <div class="nav-content__body-form">
                         <div class="nav-content__table-save">
                             <div style="display: flex; justify-content: space-evenly;width: 100%">
@@ -119,10 +111,12 @@
                                         <div class="form__group">
                                             @Html.LabelFor(m => m.username, "Username:")
                                             @Html.TextBoxFor(m => m.username, new { @class = "form__control", @placeholder = "Username" })
+                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.username)</span>
                                         </div>
                                         <div class="form__group">
                                             @Html.LabelFor(m => m.password, "Password:")
                                             @Html.TextBoxFor(m => m.password, new { @class = "form__control", @placeholder = "Password", @autofocus = "autofocus", type = "password" })
+                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.password)</span>
                                         </div>
                                         <div class="form__group">
                                             @Html.LabelFor(m => m.role, "Role:")

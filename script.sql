@@ -1,16 +1,17 @@
-﻿--CREATE DATABASE Quizz
+﻿USE [master]
+GO
+IF EXISTS (SELECT 1 FROM sys.databases WHERE [name] = N'Quizz')
+BEGIN
+    ALTER DATABASE [Quizz] SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE [Quizz];
+END;
+GO
 
-CREATE TABLE Subjects
-(
-	subject_id INT IDENTITY(1,1) PRIMARY KEY,
-	subject_name NVARCHAR(50) NOT NULL,
-	date_created DATETIME NULL
-)
+CREATE DATABASE Quizz
+GO
 
-INSERT INTO Subjects VALUES (N'Mathematics','02 June 2022')
-INSERT INTO Subjects VALUES (N'Software Engineering','02 June 2022')
-INSERT INTO Subjects VALUES (N'English','02 June 2022')
-INSERT INTO Subjects VALUES (N'Graphic Design','02 June 2022')
+USE [Quizz]
+GO
 
 CREATE TABLE Exams
 (
@@ -42,6 +43,19 @@ INSERT INTO Accounts VALUES (N'MS002',N'Trần Thanh Hằng','20 Sep 2020',0,'ab
 INSERT INTO Accounts VALUES (N'MS003',N'Trần Thanh Vân','21 April 2000',0,'mra','456',0)
 INSERT INTO Accounts VALUES (N'MS004',N'Trần Thị Thanh','09 Sep 2000',0,'mrb','456',0)
 
+CREATE TABLE Subjects
+(
+	subject_id INT IDENTITY(1,1) PRIMARY KEY,
+	subject_name NVARCHAR(50) NOT NULL,
+	date_created DATETIME NULL,
+	account_id NVARCHAR(30) FOREIGN KEY (account_id) REFERENCES Accounts(account_id),
+)
+
+INSERT INTO Subjects VALUES (N'Mathematics','02 June 2022',N'MS003')
+INSERT INTO Subjects VALUES (N'Software Engineering','02 June 2022',N'MS003')
+INSERT INTO Subjects VALUES (N'English','02 June 2022',N'MS002')
+INSERT INTO Subjects VALUES (N'Graphic Design','02 June 2022',N'MS003')
+
 CREATE TABLE Scores
 (
 	score_id INT IDENTITY(1,1) PRIMARY KEY,
@@ -69,6 +83,7 @@ INSERT INTO BankQuestions VALUES ('SWD392',2,'MS003')
 INSERT INTO BankQuestions VALUES ('SWT301',2,'MS002')
 INSERT INTO BankQuestions VALUES ('SWP391',2,'MS002')
 INSERT INTO BankQuestions VALUES ('CAA201',4,'MS003')
+INSERT INTO BankQuestions VALUES ('TRS123',3,'MS004')
 
 CREATE TABLE Questions
 (

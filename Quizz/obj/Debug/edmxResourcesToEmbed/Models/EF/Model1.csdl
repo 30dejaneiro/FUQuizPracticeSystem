@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuizzModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="account_id" />
+    </Key>
+    <Property Name="account_id" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="dob" Type="DateTime" Precision="3" />
+    <Property Name="gender" Type="Boolean" />
+    <Property Name="username" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="BankQuestions" Relationship="Self.FK__BankQuest__accou__2F10007B" FromRole="Accounts" ToRole="BankQuestions" />
+    <NavigationProperty Name="Scores" Relationship="Self.FK__Scores__account___2B3F6F97" FromRole="Accounts" ToRole="Scores" />
+  </EntityType>
+  <EntityType Name="BankQuestion">
+    <Key>
+      <PropertyRef Name="bank_id" />
+    </Key>
+    <Property Name="bank_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bank_name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="subject_id" Type="Int32" />
+    <Property Name="account_id" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__BankQuest__accou__2F10007B" FromRole="BankQuestions" ToRole="Accounts" />
+    <NavigationProperty Name="Subject" Relationship="Self.FK__BankQuest__subje__2E1BDC42" FromRole="BankQuestions" ToRole="Subjects" />
+    <NavigationProperty Name="Questions" Relationship="Self.FK__Questions__bank___31EC6D26" FromRole="BankQuestions" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="Exam">
+    <Key>
+      <PropertyRef Name="exam_id" />
+    </Key>
+    <Property Name="exam_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="code" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="test_time" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="num_of_ques" Type="Int32" Nullable="false" />
+    <Property Name="total_tested" Type="Int32" Nullable="false" />
+    <Property Name="date_created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="ExamsQues" Relationship="Self.FK__ExamsQues__exam___34C8D9D1" FromRole="Exams" ToRole="ExamsQues" />
+    <NavigationProperty Name="Scores" Relationship="Self.FK__Scores__exam_id__2A4B4B5E" FromRole="Exams" ToRole="Scores" />
+  </EntityType>
+  <EntityType Name="ExamsQue">
+    <Key>
+      <PropertyRef Name="exam_ques_id" />
+    </Key>
+    <Property Name="exam_ques_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="exam_id" Type="Int32" />
+    <Property Name="question_id" Type="Int32" />
+    <NavigationProperty Name="Exam" Relationship="Self.FK__ExamsQues__exam___34C8D9D1" FromRole="ExamsQues" ToRole="Exams" />
+    <NavigationProperty Name="Question" Relationship="Self.FK__ExamsQues__quest__35BCFE0A" FromRole="ExamsQues" ToRole="Questions" />
+  </EntityType>
+  <EntityType Name="Question">
+    <Key>
+      <PropertyRef Name="question_id" />
+    </Key>
+    <Property Name="question_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="A" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="B" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="C" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="D" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="answer" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="is_important" Type="Boolean" />
+    <Property Name="bank_id" Type="Int32" />
+    <NavigationProperty Name="BankQuestion" Relationship="Self.FK__Questions__bank___31EC6D26" FromRole="Questions" ToRole="BankQuestions" />
+    <NavigationProperty Name="ExamsQues" Relationship="Self.FK__ExamsQues__quest__35BCFE0A" FromRole="Questions" ToRole="ExamsQues" />
+  </EntityType>
+  <EntityType Name="Score">
+    <Key>
+      <PropertyRef Name="score_id" />
+    </Key>
+    <Property Name="score_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="score1" Type="Int32" Nullable="false" />
+    <Property Name="exam_id" Type="Int32" />
+    <Property Name="account_id" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="date_test" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK__Scores__account___2B3F6F97" FromRole="Scores" ToRole="Accounts" />
+    <NavigationProperty Name="Exam" Relationship="Self.FK__Scores__exam_id__2A4B4B5E" FromRole="Scores" ToRole="Exams" />
+  </EntityType>
+  <EntityType Name="Subject">
+    <Key>
+      <PropertyRef Name="subject_id" />
+    </Key>
+    <Property Name="subject_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="subject_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="date_created" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="BankQuestions" Relationship="Self.FK__BankQuest__subje__2E1BDC42" FromRole="Subjects" ToRole="BankQuestions" />
+  </EntityType>
+  <Association Name="FK__BankQuest__accou__2F10007B">
+    <End Role="Accounts" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="BankQuestions" Type="Self.BankQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="account_id" />
+      </Principal>
+      <Dependent Role="BankQuestions">
+        <PropertyRef Name="account_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Scores__account___2B3F6F97">
+    <End Role="Accounts" Type="Self.Account" Multiplicity="0..1" />
+    <End Role="Scores" Type="Self.Score" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Accounts">
+        <PropertyRef Name="account_id" />
+      </Principal>
+      <Dependent Role="Scores">
+        <PropertyRef Name="account_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__BankQuest__subje__2E1BDC42">
+    <End Role="Subjects" Type="Self.Subject" Multiplicity="0..1" />
+    <End Role="BankQuestions" Type="Self.BankQuestion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Subjects">
+        <PropertyRef Name="subject_id" />
+      </Principal>
+      <Dependent Role="BankQuestions">
+        <PropertyRef Name="subject_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Questions__bank___31EC6D26">
+    <End Role="BankQuestions" Type="Self.BankQuestion" Multiplicity="0..1" />
+    <End Role="Questions" Type="Self.Question" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BankQuestions">
+        <PropertyRef Name="bank_id" />
+      </Principal>
+      <Dependent Role="Questions">
+        <PropertyRef Name="bank_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExamsQues__exam___34C8D9D1">
+    <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+    <End Role="ExamsQues" Type="Self.ExamsQue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exams">
+        <PropertyRef Name="exam_id" />
+      </Principal>
+      <Dependent Role="ExamsQues">
+        <PropertyRef Name="exam_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Scores__exam_id__2A4B4B5E">
+    <End Role="Exams" Type="Self.Exam" Multiplicity="0..1" />
+    <End Role="Scores" Type="Self.Score" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Exams">
+        <PropertyRef Name="exam_id" />
+      </Principal>
+      <Dependent Role="Scores">
+        <PropertyRef Name="exam_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ExamsQues__quest__35BCFE0A">
+    <End Role="Questions" Type="Self.Question" Multiplicity="0..1" />
+    <End Role="ExamsQues" Type="Self.ExamsQue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Questions">
+        <PropertyRef Name="question_id" />
+      </Principal>
+      <Dependent Role="ExamsQues">
+        <PropertyRef Name="question_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuizzEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="BankQuestions" EntityType="Self.BankQuestion" />
+    <EntitySet Name="Exams" EntityType="Self.Exam" />
+    <EntitySet Name="ExamsQues" EntityType="Self.ExamsQue" />
+    <EntitySet Name="Questions" EntityType="Self.Question" />
+    <EntitySet Name="Scores" EntityType="Self.Score" />
+    <EntitySet Name="Subjects" EntityType="Self.Subject" />
+    <AssociationSet Name="FK__BankQuest__accou__2F10007B" Association="Self.FK__BankQuest__accou__2F10007B">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="BankQuestions" EntitySet="BankQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scores__account___2B3F6F97" Association="Self.FK__Scores__account___2B3F6F97">
+      <End Role="Accounts" EntitySet="Accounts" />
+      <End Role="Scores" EntitySet="Scores" />
+    </AssociationSet>
+    <AssociationSet Name="FK__BankQuest__subje__2E1BDC42" Association="Self.FK__BankQuest__subje__2E1BDC42">
+      <End Role="Subjects" EntitySet="Subjects" />
+      <End Role="BankQuestions" EntitySet="BankQuestions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Questions__bank___31EC6D26" Association="Self.FK__Questions__bank___31EC6D26">
+      <End Role="BankQuestions" EntitySet="BankQuestions" />
+      <End Role="Questions" EntitySet="Questions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExamsQues__exam___34C8D9D1" Association="Self.FK__ExamsQues__exam___34C8D9D1">
+      <End Role="Exams" EntitySet="Exams" />
+      <End Role="ExamsQues" EntitySet="ExamsQues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Scores__exam_id__2A4B4B5E" Association="Self.FK__Scores__exam_id__2A4B4B5E">
+      <End Role="Exams" EntitySet="Exams" />
+      <End Role="Scores" EntitySet="Scores" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ExamsQues__quest__35BCFE0A" Association="Self.FK__ExamsQues__quest__35BCFE0A">
+      <End Role="Questions" EntitySet="Questions" />
+      <End Role="ExamsQues" EntitySet="ExamsQues" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
