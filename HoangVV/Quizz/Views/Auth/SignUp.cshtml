@@ -1,0 +1,41 @@
+﻿@model Quizz.Models.ViewModel.AuthViewModel
+@{
+    ViewBag.Title = "Sign Up Page";
+    Layout = "~/Views/Shared/_AuthLayout.cshtml";
+}
+
+
+@using (Html.BeginForm("SignUp", "Auth", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+<div class="auth-form__container">
+    <div class="auth-form__header">
+        <h3 class="auth-form__heading">Sign Up</h3>
+        @Html.ActionLink("Sign In", "Login", "Auth", null, new { @class = "auth-form__switch-btn" })
+    </div>
+    <div class="error-message">
+        @if (ViewBag.ErrorMessage != null)
+        {@ViewBag.ErrorMessage}
+    </div>
+    <div class="auth-form__form">
+        <div class="auth-form__group">
+            @Html.TextBoxFor(m => m.Account.username, new { @class = "auth-form-input", @placeholder = "Username", @autofocus = "autofocus" })
+            <span class="error-message">@Html.ValidationMessageFor(m => m.Account.username)</span>
+        </div>
+        <div class="auth-form__group">
+            @Html.TextBoxFor(m => m.Account.password, new { @type = "password", @class = "auth-form-input", @placeholder = "Password", @autofocus = "autofocus" })
+            <span class="error-message">@Html.ValidationMessageFor(m => m.Account.password)</span>
+        </div>
+        <div class="auth-form__group">
+            @Html.TextBoxFor(m => m.Repassword, new { @type = "password", @class = "auth-form-input", @placeholder = "Re-password", @autofocus = "autofocus" })
+            <span class="error-message">@Html.ValidationMessageFor(m => m.Repassword)</span>
+        </div>
+    </div>
+    <div class="auth-form__control">
+        <button class="btn btn--primary">Sign Up</button>
+    </div>
+    <div style="width: 100%; text-align: right;">
+        @Html.ActionLink("Back", "Index", "Home", null, new { @class = "auth-form__back-btn" })
+    </div>
+</div>
+}

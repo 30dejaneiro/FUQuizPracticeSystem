@@ -1,0 +1,103 @@
+﻿@model Quizz.Models.ViewModel.QuestionViewModel
+@{
+    ViewBag.Title = "Question Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-2">
+            <div class="sub-nav">
+                <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
+                <ul class="sub-nav__list">
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Banks", "MyBank", "Profile", new { id = ViewBag.accId }, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item sub-nav__item--active">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Questions", "Questions", "Profile", new { id = ViewBag.accId }, new { @class = "sub-nav__link text" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid__col-10">
+            <div class="nav-content__wrapper" id="student">
+                <div class="nav-content__header">
+                    <div class="breadcrumb">
+                        @Html.ActionLink("Questions", "Questions", "Profile", new { id = ViewBag.accId }, new { @class = "breadcrumb-link" })
+                        <span class="breadcrumb-separate"> > </span>
+                        @if (@Request.Url.Segments[3] != "-1")
+                        {
+                            <span class="breadcrumb-detail">Update</span>
+                        }
+                        else
+                        {
+                            <span class="breadcrumb-detail">Add new question</span>
+                        }
+                    </div>
+                </div>
+                @using (Html.BeginForm("QuestionDetail", "Profile", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="nav-content__body-form">
+                        <div class="nav-content__table-save">
+                            <div style="display: flex; justify-content: space-evenly;width: 100%">
+                                @Html.HiddenFor(m => m.QuestionId)
+                                <div>
+                                    @if (@Request.Url.Segments[3] != "-1")
+                                    {
+                                        <div class="form__group">
+                                            @Html.LabelFor(m => m.QuestionId, "Id:")
+                                            @Html.TextBoxFor(m => m.QuestionId, new { @class = "form__control", @autofocus = "autofocus", @disabled = "true" })
+                                        </div>
+                                    }
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.QuestionContent, "Question:")
+                                        @Html.TextAreaFor(m => m.QuestionContent, new { @class = "form__control", @placeholder = "Question", @autofocus = "autofocus", @rows = "11" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.QuestionContent)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.BankId, "Bank:")
+                                        @Html.DropDownListFor(m => m.BankId, new SelectList(ViewBag.listBank, "bank_id", "bank_name"), null, new { @class = "form__control" })
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.A, "A:")
+                                        @Html.TextBoxFor(m => m.A, new { @class = "form__control", @placeholder = "A", @autofocus = "autofocus" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.A)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.B, "B:")
+                                        @Html.TextBoxFor(m => m.B, new { @class = "form__control", @placeholder = "B", @autofocus = "autofocus" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.B)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.C, "C:")
+                                        @Html.TextBoxFor(m => m.C, new { @class = "form__control", @placeholder = "C", @autofocus = "autofocus" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.C)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.D, "D:")
+                                        @Html.TextBoxFor(m => m.D, new { @class = "form__control", @placeholder = "D", @autofocus = "autofocus" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.D)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.Answer, "Answer:")
+                                        @Html.DropDownListFor(m => m.Answer, new List<SelectListItem> { new SelectListItem { Value = "A", Text = "A" }, new SelectListItem { Value = "B", Text = "B" }, new SelectListItem { Value = "C", Text = "C" }, new SelectListItem { Value = "D", Text = "D" } }, null, new { @class = "form__control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__group-action">
+                                @Html.ActionLink("Back", "Questions", "Profile", new { id = ViewBag.accId }, new { @class = "btn__normal mr-10" })
+                                <button type="submit" class="btn__save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
