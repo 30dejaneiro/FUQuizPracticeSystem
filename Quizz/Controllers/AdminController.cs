@@ -149,7 +149,10 @@ namespace Quizz.Controllers
                 if (check == true)
                 {
                     SetAlert(st.account_id == null ? "Create success!!!" : "Update success!!!", "success");
-                    Session["fullName"] = st.full_name;
+                    if (st.account_id != "1")
+                    {
+                        Session["fullName"] = st.full_name;
+                    }
                 }
                 else
                 {
@@ -159,8 +162,8 @@ namespace Quizz.Controllers
             }
             else
             {
-                var student = admin.GetStudentById(st.account_id);
-                return View(student);
+                //var student = admin.GetStudentById(st.account_id);
+                return View();
             }
         }
 
@@ -197,7 +200,6 @@ namespace Quizz.Controllers
                 if (check != null && check1 != null)
                 {
                     db.Accounts.Remove(check.FirstOrDefault());
-                    db.Scores.Remove(check1.FirstOrDefault());
                     db.SaveChanges();
                     SetAlert("Delete successfully!", "success");
                     return Json(new { mess = true });

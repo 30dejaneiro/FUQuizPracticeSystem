@@ -53,8 +53,6 @@
                         <div class="nav-content__table-save">
                             <div style="display: flex; justify-content: space-evenly;width: 100%">
                                 @Html.HiddenFor(m => m.account_id)
-                                @Html.HiddenFor(m => m.username)
-                                @Html.HiddenFor(m => m.password)
                                 <div>
                                     <div class="form__group">
                                         @Html.LabelFor(m => m.full_name, "Full Name:")
@@ -90,6 +88,8 @@
                                 <div>
                                     @if (@Request.Url.Segments.Length > 3)
                                     {
+                                        @Html.HiddenFor(m => m.username)
+                                        @Html.HiddenFor(m => m.password)
                                         <div class="form__group">
                                             @Html.LabelFor(m => m.account_id, "Student Id:")
                                             @Html.TextBoxFor(m => m.account_id, new { @class = "form__control", @placeholder = "Student Id", @disabled = "true" })
