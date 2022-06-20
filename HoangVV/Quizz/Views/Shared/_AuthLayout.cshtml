@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/auth.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/main.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/base.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/fonts/fontawesome/css/all.min.css">
+</head>
+<body>
+    <div class="auth">
+        <div class="auth__overlay"></div>
+        <div class="auth__body">
+            <div class="auth-form">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</body>
+</html>
