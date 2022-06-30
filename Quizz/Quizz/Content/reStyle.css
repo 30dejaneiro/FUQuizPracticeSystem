@@ -1,0 +1,37 @@
+﻿#table_id_length label {
+    color: white;
+    font-size: 1.4rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+#table_id_paginate {
+    color: white;
+    font-size: 1.4rem;
+    display: flex;
+}
+
+.paginate_button {
+    --height: 30px;
+    display: block;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--white-color);
+    min-width: 30px;
+    height: var(--height);
+    text-align: center;
+    line-height: var(--height);
+}
+
+    .paginate_button.current {
+        background-color: var(--second-color);
+        color: var(--white-color);
+        border-radius: 2px;
+    }
+
+
+#table_id_info{
+    display: none;
+}

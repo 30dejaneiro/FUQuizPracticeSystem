@@ -1,0 +1,86 @@
+﻿@model Quizz.Models.ViewModel.BankViewModel
+@{
+    ViewBag.Title = "BankDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-2">
+            <div class="sub-nav">
+                <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
+                <ul class="sub-nav__list">
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Students", "Index", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Subjects", "SubjectList", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item sub-nav__item--active">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Banks", "BankList", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid__col-10">
+            <div class="nav-content__wrapper">
+                <div class="nav-content__header">
+                    <div class="breadcrumb">
+                        @Html.ActionLink("Banks", "BankList", "Admin", null, new { @class = "breadcrumb-link" })
+                        <span class="breadcrumb-separate"> > </span>
+                        <span class="breadcrumb-detail"></span>
+                        @if (@Request.Url.Segments[3] != "-1")
+                        {
+                            <span class="breadcrumb-detail">Update</span>
+                        }
+                        else
+                        {
+                            <span class="breadcrumb-detail">Save</span>
+                        }
+                    </div>
+                </div>
+                @using (Html.BeginForm("BankDetail", "Admin", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="nav-content__body-form">
+                        <div class="nav-content__table-save">
+                            <div style="display: flex; justify-content: space-evenly;width: 100%">
+                                @Html.HiddenFor(m => m.BankId)
+                                <div>
+                                    @if (@Request.Url.Segments[3] != "-1")
+                                    {
+                                        <div class="form__group">
+                                            @Html.LabelFor(m => m.BankId, "Id:")
+                                            @Html.TextBoxFor(m => m.BankId, new { @class = "form__control", @autofocus = "autofocus", @disabled = "true" })
+                                        </div>
+                                    }
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.BankName, "Bank Name:")
+                                        @Html.TextBoxFor(m => m.BankName, new { @class = "form__control", @placeholder = "Bank Name", @autofocus = "autofocus" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.BankName)</span>
+                                    </div>
+                                    <div class="form__group">
+                                        @Html.LabelFor(m => m.SubjectId, "Subjects:")
+                                        @Html.DropDownListFor(m => m.SubjectId, new SelectList(ViewBag.listSubject, "subject_id", "subject_name"), null, new { @class = "form__control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form__group-action">
+                                @Html.ActionLink("Back", "BankList", "Admin", null, new { @class = "btn__normal mr-10" })
+                                <button type="submit" class="btn__save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
