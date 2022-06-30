@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Error.cshtml";
+}
+<div class="grid">
+    <div class="grid__row">
+        <div id="toastify__wrapper"></div>
+
+        <div class="grid__col-12">
+            <div class="nav-content__wrapper">
+                <div class="nav-content__header"></div>
+                <div class="practice__container" style="display: flex;flex-direction: column;justify-content: center;align-content: center;width: 100%;text-align:center">
+                    <h1 style="font-size: 40px">Not Found</h1>
+                    <h2 style="font-size: 20px;margin: 30px 0">An error occurred while processing your request.</h2>
+                    <div style="font-size: 20px" >
+                        <a href="@Url.Action("Index","Home")">Click here</a> to go back home
+                    </div>
+                </div>
+                <div class="nav-content__footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
