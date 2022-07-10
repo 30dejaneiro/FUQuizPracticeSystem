@@ -20,6 +20,7 @@ namespace Quizz.Models.EF
         [StringLength(30)]
         public string account_id { get; set; }
 
+        [Required]
         [StringLength(50, ErrorMessage = "Full name can be more than 50.")]
         public string full_name { get; set; }
 
@@ -32,7 +33,7 @@ namespace Quizz.Models.EF
         public string username { get; set; }
 
         [Required]
-        [StringLength(20, ErrorMessage = "Password can be more than 20.")]
+        [StringLength(20, ErrorMessage = "Username can be more than 20.")]
         public string password { get; set; }
 
         public bool role { get; set; }

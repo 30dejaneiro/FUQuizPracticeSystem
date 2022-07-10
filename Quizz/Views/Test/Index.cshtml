@@ -4,5 +4,38 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-12">
+            <div class="nav-content__wrapper">
+                <div class="nav-content__header">
+                    <h2 class="nav-content__title">Test</h2>
+                </div>
+                <div class="nav-content__body">
+                    <div class="nav-content__test">
+                        <div class="form__group" style="display: flex;align-items: center;margin-bottom: 20px">
+                            @Html.LabelFor(m => m.code, "Enter code:")
+                            @Html.TextBoxFor(m => m.code, new { @id = "textCode", @class = "form__control", @placeholder = "Code" })
+                        </div>
+                        <div>@Html.ActionLink("Start", "TestDetail", "Test", new { t = 3 }, new { id = "buttonStart", @class = "btn btn__second", @style = "width: 200px;height: 50px;font-size: 1.8rem;display: flex;align-items: center;justify-content:center" })</div>
+                    </div>
+                </div>
 
+                <div class="nav-content__footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<Script>
+    $("#textCode").change(() => {
+        $("#buttonStart").attr("href", "/Test/TestDetail/?code=" + $("#textCode").val());
+    })
+
+    $(document).on('keypress', function (e) {
+        if (e.which == 13) {
+            document.getElementById("buttonStart").click();
+        }
+    });
+</Script>
 

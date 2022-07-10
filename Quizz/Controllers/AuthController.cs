@@ -11,6 +11,7 @@ namespace Toeic_Quizz.Controllers
 {
     public class AuthController : Controller
     {
+        // GET: Login
         public ActionResult Login()
         {
             return View();
@@ -63,18 +64,19 @@ namespace Toeic_Quizz.Controllers
                     if (check == null)
                     {
                         db.Configuration.ValidateOnSaveEnabled = true;
-                        var totalStudent = (from row in db.Accounts select row).Count();
+                        var students = (from row in db.Accounts orderby row.account_id descending select row).Take(1);
+                        int number = Convert.ToInt32(students.FirstOrDefault().account_id.Last().ToString());
                         Account a = new Account
                         {
-                            account_id = "Ms00" + (totalStudent + 1),
+                            account_id = "Ms00" + (number + 1),
                             username = m.Account.username,
                             password = m.Account.password,
+                            full_name = "Default name",
                             role = false,
                         };
-                        db.Accounts.Add(a);
                         Score s = new Score
                         {
-                            account_id = "Ms00" + (totalStudent + 1),
+                            account_id = "Ms00" + (number + 1),
                             score1 = 0,
                         };
                         db.Accounts.Add(a);

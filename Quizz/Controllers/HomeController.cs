@@ -51,6 +51,13 @@ namespace Toeic_Quizz.Controllers
             return View();
         }
 
+        public ActionResult Scores(string id, int? page)
+        {
+            var iplSubject = new SubjectDAO();
+            ViewBag.listScore = iplSubject.GetScoresByAccount(id, page);
+            return View();
+        }
+
         [HttpPost]
         public ActionResult ChangePassword(AuthViewModel av)
         {
@@ -85,26 +92,32 @@ namespace Toeic_Quizz.Controllers
         }
 
         [HttpPost]
-        public ActionResult ChangeProfile(StudentViewModel st)
+        public ActionResult UserProfile(Account st)
         {
-            using (QuizzDbContext db = new QuizzDbContext())
+            AdminDAO admin = new AdminDAO();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("account_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
             {
-                string id = Session["account"].ToString() ?? "";
-                var obj = (from a in db.Accounts where a.account_id.Equals(id) select a).FirstOrDefault();
-                if (obj == null)
+                bool check = admin.SaveOrUpdate(st, st.account_id);
+                if (check == true)
                 {
-                    SetAlert("Update Fail!!!", "error");
+                    SetAlert("Update success!!!", "success");
+                    if (st.account_id != "1")
+                    {
+                        Session["fullName"] = st.full_name;
+                    }
                 }
                 else
                 {
-                    obj.full_name = st.Fullname;
-                    obj.dob = st.Dob;
-                    obj.gender = st.Gender;
-                    db.SaveChanges();
-                    SetAlert("Update Successfully!", "success");
+                    SetAlert("Create fail!!!", "error");
                 }
+                return RedirectToAction("UserProfile", "Home", new { id = Session["account"] });
             }
-            return RedirectToAction("UserProfile", "Home", new { id = Session["account"] });
+            else
+            {
+                var student = admin.GetStudentById(st.account_id);
+                return View(student);
+            }
         }
 
     }

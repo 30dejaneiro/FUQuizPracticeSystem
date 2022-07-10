@@ -48,6 +48,31 @@ namespace Quizz.Models.DAO
             return obj.OrderBy(m => m.DateCreated).ToPagedList(pageIndex, pageSize);
         }
 
+        public IPagedList<SubjectViewModel> PageSubjectById(string id, int? page, string search)
+        {
+            int pageSize = 5;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var obj = from s in db.Subjects
+                      join q in db.BankQuestions on s.subject_id equals q.subject_id into sq
+                      from q in sq.DefaultIfEmpty()
+                      where s.account_id == id
+                      group new { q, s } by new { s.subject_id, s.subject_name } into g
+                      select new SubjectViewModel()
+                      {
+                          SubjectId = g.FirstOrDefault().s.subject_id,
+                          SubjectName = g.FirstOrDefault().s.subject_name,
+                          TotalBank = g.Count(m => m.q.subject_id > 0),
+                          AccountId = g.FirstOrDefault().s.account_id,
+                          DateCreated = g.FirstOrDefault().s.date_created,
+                      };
+            if (!String.IsNullOrEmpty(search))
+            {
+                obj = obj.Where(p => p.SubjectName.Contains(search));
+            }
+            return obj.OrderBy(m => m.DateCreated).ToPagedList(pageIndex, pageSize);
+        }
+
         public IPagedList<QuestionViewModel> PageQuestionById(string id, int? page, string search)
         {
             int pageSize = 10;

@@ -18,6 +18,10 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Change password", "ChangePassword", "Home", new { id = Session["account"].ToString()}, new { @class = "sub-nav__link text" })
                     </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Scores", "Scores", "Home", new { id = Session["account"].ToString()}, new { @class = "sub-nav__link text" })
+                    </li>
                 </ul>
             </div>
         </div>
@@ -32,9 +36,12 @@
                         <span class="breadcrumb-detail">User Profile</span>
                     </div>
                 </div>
-                @using (Html.BeginForm("ChangeProfile", "Home", FormMethod.Post))
+                @using (Html.BeginForm("UserProfile", "Home", FormMethod.Post))
                 {
+                    @Html.AntiForgeryToken()
                     @Html.HiddenFor(m => m.account_id)
+                    @Html.HiddenFor(m => m.username)
+                    @Html.HiddenFor(m => m.password)
                     <div class="nav-content__body-form">
                         <div class="nav-content__table-save">
                             <div style="display: flex; justify-content: space-evenly;width: 100%">
@@ -46,6 +53,7 @@
                                     <div class="form__group">
                                         @Html.LabelFor(m => m.full_name, "Full Name:")
                                         @Html.TextBoxFor(m => m.full_name, new { @class = "form__control", @placeholder = "Full name", @autofocus = "autofocus" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.full_name)</span>
                                     </div>
                                 </div>
                                 <div>
