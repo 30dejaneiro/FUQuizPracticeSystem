@@ -11,6 +11,7 @@ namespace Toeic_Quizz.Controllers
 {
     public class AuthController : Controller
     {
+        // GET: Login
         public ActionResult Login()
         {
             return View();
@@ -73,7 +74,13 @@ namespace Toeic_Quizz.Controllers
                             full_name = "Default name",
                             role = false,
                         };
+                        Score s = new Score
+                        {
+                            account_id = "Ms00" + (number + 1),
+                            score1 = 0,
+                        };
                         db.Accounts.Add(a);
+                        db.Scores.Add(s);
                         db.SaveChanges();
                         ViewBag.Message = "Register Successfully!";
                         return View("Login");

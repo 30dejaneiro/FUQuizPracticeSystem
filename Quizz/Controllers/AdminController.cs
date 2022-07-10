@@ -27,6 +27,13 @@ namespace Quizz.Controllers
             return View();
         }
 
+        public ActionResult ScoreList(int? page)
+        {
+            var iplAdmin = new AdminDAO();
+            ViewBag.listScore = iplAdmin.PageScore(page);
+            return View();
+        }
+
         public ActionResult BankList(int? page, string search)
         {
             var iplAdmin = new AdminDAO();
@@ -88,6 +95,48 @@ namespace Quizz.Controllers
                 iplAdmin.SubjectAOU(s, s.subject_id, session);
                 SetAlert(s.subject_id == 0 ? "Create success!!!" : "Update success!!!", "success");
                 return RedirectToAction(s.subject_id == 0 ? "SubjectList" : "SubjectDetail", "Admin", new { id = s.subject_id == 0 ? -1 : s.subject_id });
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult TestList(int? page)
+        {
+            var iplAdmin = new AdminDAO();
+            ViewBag.listTest = iplAdmin.PageTest(page);
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult TestDetail(int id)
+        {
+            var iplAdmin = new AdminDAO();
+            var test = iplAdmin.GetTestById(id);
+            return View(test);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TestDetail(Exam vm)
+        {
+            var iplAdmin = new AdminDAO();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("exam_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
+            {
+                int status = iplAdmin.TestAOU(vm, vm.exam_id);
+                if (status == 1)
+                {
+                    SetAlert(vm.exam_id == 0 ? "Create success!!!" : "Update success!!!", "success");
+                    return RedirectToAction(vm.exam_id == 0 ? "TestList" : "TestDetail", "Admin", new { id = vm.exam_id == 0 ? -1 : vm.exam_id });
+                }
+                else
+                {
+                    SetAlert("Code already exist!", "warning");
+                    return View();
+                }
             }
             else
             {
@@ -207,7 +256,7 @@ namespace Quizz.Controllers
                         SetAlert("Delete failt!!!PLease delete all detail of this account", "warning");
                         return Json(new { mess = false });
                     }
-                    
+
                 }
                 else
                 {
@@ -217,6 +266,31 @@ namespace Quizz.Controllers
             }
         }
 
+        [HttpPost]
+        public JsonResult DeleteTest(int id)
+        {
+            using (QuizzDbContext db = new QuizzDbContext())
+            {
+                var check = from q in db.Exams where q.exam_id == id select q;
+                bool message = false;
+                if (check != null)
+                {
+                    try
+                    {
+                        db.Exams.Remove(check.FirstOrDefault());
+                        db.SaveChanges();
+                        SetAlert("Delete successfully!", "success");
+                        message = true;
+                    }
+                    catch (Exception)
+                    {
+                        SetAlert("Delete fail!!!", "error");
+                        message = false;
+                    }
+                }
+                return Json(new { mess = message });
+            }
+        }
 
         [HttpPost]
         public JsonResult DeleteQuestion(int id)

@@ -69,12 +69,20 @@
                                             @Html.LabelFor(m => m.exam_id, "Id:")
                                             @Html.TextBoxFor(m => m.exam_id, new { @class = "form__control", @autofocus = "autofocus", @disabled = "true" })
                                         </div>
+                                        <div class="form__group">
+                                            @Html.LabelFor(m => m.code, "Test Code:")
+                                            @Html.TextBoxFor(m => m.code, new { @id = "codeText", @class = "form__control", @placeholder = "Code", @disabled = "true" })
+                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.code)</span>
+                                        </div>
                                     }
-                                    <div class="form__group">
-                                        @Html.LabelFor(m => m.code, "Test Code:")
-                                        @Html.TextBoxFor(m => m.code, new { @id = "codeText", @class = "form__control", @placeholder = "Code" })
-                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.code)</span>
-                                    </div>
+                                    else
+                                    {
+                                        <div class="form__group">
+                                            @Html.LabelFor(m => m.code, "Test Code:")
+                                            @Html.TextBoxFor(m => m.code, new { @id = "codeText", @class = "form__control", @placeholder = "Code" })
+                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.code)</span>
+                                        </div>
+                                    }
                                     <div class="form__group">
                                         @Html.LabelFor(m => m.test_time, "Test time:")
                                         @Html.TextBoxFor(m => m.test_time, new { @class = "form__control", @placeholder = "hh:mm:ss" })
@@ -82,7 +90,7 @@
                                     </div>
                                     <div class="form__group">
                                         @Html.LabelFor(m => m.num_of_ques, "Number of question:")
-                                        @Html.TextBoxFor(m => m.num_of_ques, new { type = "number", @class = "form__control", @placeholder = "Number of question part 1" })
+                                        @Html.TextBoxFor(m => m.num_of_ques, new { type = "number", @class = "form__control", @placeholder = "Number of question" })
                                         <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.num_of_ques)</span>
                                     </div>
                                 </div>

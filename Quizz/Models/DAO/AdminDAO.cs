@@ -31,7 +31,7 @@ namespace Quizz.Models.DAO
 
         public IPagedList<SubjectViewModel> PageSubject(int? page, string search)
         {
-            int pageSize = 5;
+            int pageSize = 10;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var obj = from s in db.Subjects
@@ -53,9 +53,40 @@ namespace Quizz.Models.DAO
             return obj.OrderBy(m => m.DateCreated).ToPagedList(pageIndex, pageSize);
         }
 
+        public IPagedList<Exam> PageTest(int? page)
+        {
+
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+            var obj = from v in db.Exams
+                      orderby v.exam_id
+                      select v;
+            return obj.ToPagedList(pageIndex, pageSize);
+        }
+
+        public IPagedList<ScoreTestViewModel> PageScore(int? page)
+        {
+            int pageSize = 10;
+            int pageIndex = 1;
+            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
+
+            var obj = from sc in db.Scores
+                      join t in db.Exams on sc.exam_id equals t.exam_id
+                      orderby sc.account_id
+                      select new ScoreTestViewModel()
+                      {
+                          TestCode = t.code,
+                          AccountId = sc.account_id,
+                          DateTest = sc.date_test,
+                          TotalScore = sc.score1
+                      };
+            return obj.ToPagedList(pageIndex, pageSize);
+        }
+
         public IPagedList<BankViewModel> PageBank(int? page, string search)
         {
-            int pageSize = 5;
+            int pageSize = 10;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var obj = from q in db.BankQuestions
@@ -132,7 +163,14 @@ namespace Quizz.Models.DAO
                       };
             return obj.FirstOrDefault();
         }
-        
+
+        public Exam GetTestById(int id)
+        {
+
+            var obj = from a in db.Exams where a.exam_id == id select a;
+            return obj.FirstOrDefault();
+        }
+
         public QuestionViewModel GetQuestionById(int id)
         {
             var obj = from l in db.Questions
@@ -150,6 +188,51 @@ namespace Quizz.Models.DAO
                           BankId = b.bank_id
                       };
             return obj.FirstOrDefault();
+        }
+
+        public bool FindByTestCode(string code)
+        {
+            var obj = (from t in db.Exams where t.code == code select t).FirstOrDefault();
+            if (obj != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public int TestAOU(Exam vm, int id)
+        {
+            int status = 0;
+            if (id == 0)
+            {
+                bool checkCode = FindByTestCode(vm.code);
+                if (checkCode == false)
+                {
+                    Exam t = new Exam()
+                    {
+                        code = vm.code,
+                        test_time = vm.test_time,
+                        date_created = DateTime.Now,
+                        num_of_ques = vm.num_of_ques,
+                        total_tested = 0,
+                    };
+                    db.Exams.Add(t);
+                    status = 1;
+                }
+            }
+            else
+            {
+                var obj = (from a in db.Exams where a.exam_id == id select a).FirstOrDefault();
+                obj.code = vm.code;
+                obj.test_time = vm.test_time;
+                obj.num_of_ques = vm.num_of_ques;
+                status = 1;
+            }
+            db.SaveChanges();
+            return status;
         }
 
         public void SubjectAOU(Subject s, int id,string aId)
@@ -231,7 +314,7 @@ namespace Quizz.Models.DAO
         {
             var students = (from row in db.Accounts select row).OrderByDescending(m => m.account_id).Take(1);
             int number = Convert.ToInt32(students.FirstOrDefault().account_id.Last().ToString());
-            
+
             if (id == null)
             {
                 Account a = new Account

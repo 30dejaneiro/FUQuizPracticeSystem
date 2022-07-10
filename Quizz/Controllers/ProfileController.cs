@@ -19,7 +19,6 @@ namespace Quizz.Controllers
             ViewBag.accId = id;
             return View();
         }
-
         public ActionResult Questions(string id, int? page, string search)
         {
             var iplProfile = new ProfileDAO();
