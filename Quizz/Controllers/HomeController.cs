@@ -45,39 +45,16 @@ namespace Toeic_Quizz.Controllers
             var student = iplAdmin.GetStudentById(id);
             return View(student);
         }
-        [HttpPost]
-        public ActionResult UserProfile(Account st)
-        {
-            AdminDAO admin = new AdminDAO();
-            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("account_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
-            if (errors.Length == 0)
-            {
-                bool check = admin.SaveOrUpdate(st, st.account_id);
-                if (check == true)
-                {
-                    SetAlert("Update success!!!", "success");
-                    if (st.account_id != "1")
-                    {
-                        Session["fullName"] = st.full_name;
-                    }
-                }
-                else
-                {
-                    SetAlert("Create fail!!!", "error");
-                }
-                return RedirectToAction("UserProfile", "Home", new { id = Session["account"] });
-            }
-            else
-            {
-                var student = admin.GetStudentById(st.account_id);
-                return View(student);
-            }
-
-        }
-
 
         public ActionResult ChangePassword()
         {
+            return View();
+        }
+
+        public ActionResult Scores(string id, int? page)
+        {
+            var iplSubject = new SubjectDAO();
+            ViewBag.listScore = iplSubject.GetScoresByAccount(id, page);
             return View();
         }
 
@@ -112,6 +89,35 @@ namespace Toeic_Quizz.Controllers
                 }
             }
             return RedirectToAction("ChangePassword", "Home", new { id = Session["account"] });
+        }
+
+        [HttpPost]
+        public ActionResult UserProfile(Account st)
+        {
+            AdminDAO admin = new AdminDAO();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("account_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
+            {
+                bool check = admin.SaveOrUpdate(st, st.account_id);
+                if (check == true)
+                {
+                    SetAlert("Update success!!!", "success");
+                    if (st.account_id != "1")
+                    {
+                        Session["fullName"] = st.full_name;
+                    }
+                }
+                else
+                {
+                    SetAlert("Create fail!!!", "error");
+                }
+                return RedirectToAction("UserProfile", "Home", new { id = Session["account"] });
+            }
+            else
+            {
+                var student = admin.GetStudentById(st.account_id);
+                return View(student);
+            }
         }
 
     }

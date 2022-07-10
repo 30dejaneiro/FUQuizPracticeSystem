@@ -33,7 +33,7 @@ namespace Quizz.Models.EF
         public string username { get; set; }
 
         [Required]
-        [StringLength(20, ErrorMessage = "Password can be more than 20.")]
+        [StringLength(20, ErrorMessage = "Username can be more than 20.")]
         public string password { get; set; }
 
         public bool role { get; set; }

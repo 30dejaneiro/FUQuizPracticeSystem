@@ -1,4 +1,4 @@
-﻿$("#toastify").delay(2000).slideUp(500);
+﻿$("#toastify").delay(1500).slideUp(500);
 
 function checkDelete(id, text) {
     switch (text) {
@@ -13,6 +13,7 @@ function checkDelete(id, text) {
 function checkDeleteUser(id, text, acc) {
     switch (text) {
         case "mybank": deleteItem1(id, text, "/Profile/DeleteBank", "/Profile/MyBank", acc); break;
+        case "subject": deleteItem1(id, text, "/Profile/DeleteSubject", "/Profile/Subjects", acc); break;
         case "question": deleteItem1(id, text, "/Profile/DeleteQuestion", "/Profile/Questions", acc); break;
     }
 }
