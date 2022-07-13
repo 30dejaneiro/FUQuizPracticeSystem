@@ -36,18 +36,19 @@
                         <thead>
                             <tr>
                                 <th>Test Code</th>
-                                <th>Total Score</th>
+                                <th>Result</th>
+                                <th>Score</th>
                                 <th>Date Tested</th>
                             </tr>
                         </thead>
                         <tbody>
                             @if (Enumerable.Count(ViewBag.listScore) == 0)
                             {
-                            <tr>
-                                <td></td>
-                                <td><span style="font-size: 2rem;height: 50px;display: block;line-height: 50px;">No data</span></td>
-                                <td></td>
-                            </tr>
+                                <tr>
+                                    <td></td>
+                                    <td><span style="font-size: 2rem;height: 50px;display: block;line-height: 50px;">No data</span></td>
+                                    <td></td>
+                                </tr>
                             }
                             else
                             {
@@ -55,7 +56,8 @@
                                 {
                                     <tr>
                                         <td>@v.TestCode</td>
-                                        <td>@v.TotalScore</td>
+                                        <td>@(v.TotalScore / (100 / v.TotalQues)) / @v.TotalQues questions</td>
+                                        <td>@v.TotalScore / 100</td>
                                         <td>@(v.DateTest.HasValue ? v.DateTest.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                                     </tr>
                                 }

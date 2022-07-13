@@ -8,12 +8,6 @@ namespace Quizz.Models.EF
 
     public partial class Question
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Question()
-        {
-            ExamsQues = new HashSet<ExamsQue>();
-        }
-
         [Key]
         public int question_id { get; set; }
 
@@ -41,8 +35,5 @@ namespace Quizz.Models.EF
         public int? bank_id { get; set; }
 
         public virtual BankQuestion BankQuestion { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ExamsQue> ExamsQues { get; set; }
     }
 }

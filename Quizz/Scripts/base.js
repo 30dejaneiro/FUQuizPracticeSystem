@@ -7,6 +7,7 @@ function checkDelete(id, text) {
         case "subject": deleteItem(id, text, "/Admin/DeleteSubject", "/Admin/SubjectList"); break;
         case "bank": deleteItem(id, text, "/Admin/DeleteBank", "/Admin/BankList"); break;
         case "test": deleteItem(id, text, "/Admin/DeleteTest", "/Admin/TestList"); break;
+        case "examQues": deleteItem(id, text, "/Admin/DeleteExamQuestion", "/Admin/ExamQuestions"); break;
     }
 }
 

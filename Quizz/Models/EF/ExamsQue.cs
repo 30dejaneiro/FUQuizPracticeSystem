@@ -13,10 +13,25 @@ namespace Quizz.Models.EF
 
         public int? exam_id { get; set; }
 
-        public int? question_id { get; set; }
+        [Required]
+        public string content { get; set; }
+
+        [Required]
+        public string A { get; set; }
+
+        [Required]
+        public string B { get; set; }
+
+        [Required]
+        public string C { get; set; }
+
+        [Required]
+        public string D { get; set; }
+
+        [Required]
+        [StringLength(5)]
+        public string answer { get; set; }
 
         public virtual Exam Exam { get; set; }
-
-        public virtual Question Question { get; set; }
     }
 }

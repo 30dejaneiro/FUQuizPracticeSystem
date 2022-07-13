@@ -16,40 +16,15 @@ namespace Quizz.Models.DAO
             db = new QuizzDbContext();
         }
 
-        public List<Subject> GetAllSubjects()
+        public List<Subject> GetSubjects()
         {
             var obj = from s in db.Subjects orderby s.subject_id select s;
             return obj.ToList();
         }
-        public List<Account> GetAllAccount()
-        {
-            var obj = from s in db.Accounts select s;
-            return obj.ToList();
-        }
 
-        public IPagedList<ScoreTestViewModel> GetScoresByAccount(string id, int? page)
+        public IPagedList<SubjectViewModel> PageSubjects(int? page, string search)
         {
-            int pageSize = 5;
-            int pageIndex = 1;
-            pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-
-            var obj = from sc in db.Scores
-                      join t in db.Exams on sc.exam_id equals t.exam_id
-                      where sc.account_id == id
-                      orderby sc.account_id
-                      select new ScoreTestViewModel()
-                      {
-                          TestCode = t.code,
-                          AccountId = sc.account_id,
-                          TotalScore = sc.score1,
-                          DateTest = sc.date_test
-                      };
-            return obj.ToPagedList(pageIndex, pageSize);
-        }
-
-        public IPagedList<SubjectViewModel> SearchByPage(int? page, string search)
-        {
-            int pageSize = 5;
+            int pageSize = 10;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
             var obj = from s in db.Subjects
@@ -61,50 +36,86 @@ namespace Quizz.Models.DAO
                           SubjectId = g.FirstOrDefault().s.subject_id,
                           SubjectName = g.FirstOrDefault().s.subject_name,
                           TotalBank = g.Count(m => m.q.subject_id > 0),
+                          AccountId = g.FirstOrDefault().s.account_id,
+                          DateCreated = g.FirstOrDefault().s.date_created,
                       };
             if (!String.IsNullOrEmpty(search))
             {
                 obj = obj.Where(p => p.SubjectName.Contains(search));
             }
-            return obj.OrderBy(m => m.SubjectId).ToPagedList(pageIndex, pageSize);
+            return obj.OrderBy(m => m.DateCreated).ToPagedList(pageIndex, pageSize);
         }
 
-        public IPagedList<BankViewModel> GetAllBankQuestion(int? page, string search, int subject)
+        public IPagedList<SubjectViewModel> PageSubjectById(string id, int? page, string search)
         {
             int pageSize = 5;
             int pageIndex = 1;
             pageIndex = page.HasValue ? Convert.ToInt32(page) : 1;
-            var obj = from q in db.BankQuestions
-                      join s in db.Questions on q.bank_id equals s.bank_id into bq
-                      from s in bq.DefaultIfEmpty()
-                      where q.subject_id == subject
-                      group new { q, s } by new { s.bank_id, q.bank_name } into g
-                      select new BankViewModel()
+            var obj = from s in db.Subjects
+                      join q in db.BankQuestions on s.subject_id equals q.subject_id into sq
+                      from q in sq.DefaultIfEmpty()
+                      where s.account_id == id
+                      group new { q, s } by new { s.subject_id, s.subject_name } into g
+                      select new SubjectViewModel()
                       {
-                          BankId = g.FirstOrDefault().q.bank_id,
-                          BankName = g.Key.bank_name,
-                          AccountName = g.FirstOrDefault().q.account_id,
-                          TotalQues = g.Count(m => m.s.bank_id > 0),
+                          SubjectId = g.FirstOrDefault().s.subject_id,
+                          SubjectName = g.FirstOrDefault().s.subject_name,
+                          TotalBank = g.Count(m => m.q.subject_id > 0),
+                          AccountId = g.FirstOrDefault().s.account_id,
+                          DateCreated = g.FirstOrDefault().s.date_created,
                       };
             if (!String.IsNullOrEmpty(search))
             {
-                obj = obj.Where(p => p.BankName.Contains(search));
+                obj = obj.Where(p => p.SubjectName.Contains(search));
             }
-            return obj.OrderBy(m => m.BankId).ToPagedList(pageIndex, pageSize);
+            return obj.OrderBy(m => m.DateCreated).ToPagedList(pageIndex, pageSize);
         }
 
-
-        public List<Question> GetQuestionsByBank(int bank)
+        public Subject GetSubjectById(int? id)
         {
-            var obj = from q in db.Questions where q.bank_id == bank select q;
-            return obj.ToList();
+            var obj = from s in db.Subjects where s.subject_id == id select s;
+            return obj.FirstOrDefault();
         }
 
-        public string GetSubjectName(int subject)
+        public string GetSubjectName(int subject, int bank)
         {
-            var obj = from s in db.Subjects where s.subject_id == subject select s;
+            IQueryable<Subject> obj;
+            if (subject != 0)
+            {
+                obj = from s in db.Subjects
+                      join b in db.BankQuestions on s.subject_id equals b.subject_id
+                      where s.subject_id == subject
+                      select s;
+            }
+            else
+            {
+                obj = from s in db.Subjects
+                      join b in db.BankQuestions on s.subject_id equals b.subject_id
+                      where b.bank_id == bank
+                      select s;
+            }
             return obj.FirstOrDefault().subject_name;
         }
 
+        public void SubjectAOU(Subject s, int id, string aId)
+        {
+            if (id == 0)
+            {
+                Subject t = new Subject()
+                {
+                    subject_name = s.subject_name,
+                    date_created = DateTime.Now,
+                    account_id = aId
+                };
+                db.Subjects.Add(t);
+                db.SaveChanges();
+            }
+            else
+            {
+                var obj = (from a in db.Subjects where a.subject_id == id select a).FirstOrDefault();
+                obj.subject_name = s.subject_name;
+            }
+            db.SaveChanges();
+        }
     }
 }

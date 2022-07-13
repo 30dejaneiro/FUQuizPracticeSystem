@@ -1,6 +1,6 @@
-﻿@model Quizz.Models.ViewModel.QuestionViewModel
+﻿@model Quizz.Models.ViewModel.ExamQuestionModel
 @{
-    ViewBag.Title = "Question Detail";
+    ViewBag.Title = "Exam Question Detail";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -22,7 +22,7 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Banks", "BankList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item sub-nav__item--active">
+                    <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Questions", "QuestionList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
@@ -30,7 +30,7 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item">
+                    <li class="sub-nav__item sub-nav__item--active">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Exam Questions", "ExamQuestions", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
@@ -45,7 +45,7 @@
             <div class="nav-content__wrapper" id="student">
                 <div class="nav-content__header">
                     <div class="breadcrumb">
-                        @Html.ActionLink("Question List", "QuestionList", "Admin", null, new { @class = "breadcrumb-link" })
+                        @Html.ActionLink("Exam Questions", "ExamQuestions", "Admin", null, new { @class = "breadcrumb-link" })
                         <span class="breadcrumb-separate"> > </span>
                         <span class="breadcrumb-detail"></span>
                         @if (@Request.Url.Segments[3] != "-1")
@@ -58,19 +58,19 @@
                         }
                     </div>
                 </div>
-                @using (Html.BeginForm("QuestionDetail", "Admin", FormMethod.Post))
+                @using (Html.BeginForm("ExamQuestionDetail", "Admin", FormMethod.Post))
                 {
                     @Html.AntiForgeryToken()
                     <div class="nav-content__body-form">
                         <div class="nav-content__table-save">
                             <div style="display: flex; justify-content: space-evenly;width: 100%">
-                                @Html.HiddenFor(m => m.QuestionId)
+                                @Html.HiddenFor(m => m.ExamQuestionId)
                                 <div>
                                     @if (@Request.Url.Segments[3] != "-1")
                                     {
                                         <div class="form__group">
-                                            @Html.LabelFor(m => m.QuestionId, "Id:")
-                                            @Html.TextBoxFor(m => m.QuestionId, new { @class = "form__control", @autofocus = "autofocus", @disabled = "true" })
+                                            @Html.LabelFor(m => m.ExamQuestionId, "Id:")
+                                            @Html.TextBoxFor(m => m.ExamQuestionId, new { @class = "form__control", @autofocus = "autofocus", @disabled = "true" })
                                         </div>
                                     }
                                     <div class="form__group">
@@ -79,8 +79,8 @@
                                         <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.QuestionContent)</span>
                                     </div>
                                     <div class="form__group">
-                                        @Html.LabelFor(m => m.BankId, "Bank:")
-                                        @Html.DropDownListFor(m => m.BankId, new SelectList(ViewBag.listBank, "bank_id", "bank_name"), null, new { @class = "form__control" })
+                                        @Html.LabelFor(m => m.ExamId, "Exam Code:")
+                                        @Html.DropDownListFor(m => m.ExamId, new SelectList(ViewBag.listBank, "exam_id", "code"), null, new { @class = "form__control" })
                                     </div>
                                 </div>
                                 <div>
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
                             <div class="form__group-action">
-                                @Html.ActionLink("Back", "QuestionList", "Admin", null, new { @class = "btn__normal mr-10" })
+                                @Html.ActionLink("Back", "ExamQuestions", "Admin", null, new { @class = "btn__normal mr-10" })
                                 <button type="submit" class="btn__save">Save</button>
                             </div>
                         </div>

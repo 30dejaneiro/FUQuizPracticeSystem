@@ -32,6 +32,10 @@
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Exam Questions", "ExamQuestions", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
@@ -73,16 +77,16 @@
                             }
                             else
                             {
-                                foreach (var a in (ViewBag.listStu as PagedList.IPagedList<Quizz.Models.EF.Account>))
+                                foreach (var a in (ViewBag.listStu as PagedList.IPagedList<Quizz.Models.ViewModel.AccountViewModel>))
                                 {
-                                    <tr id="student@{@a.account_id}">
-                                        <td>@a.account_id</td>
-                                        <td>@a.full_name</td>
-                                        <td>@(a.gender == true ? "Male" : "Female")</td>
-                                        <td>@(a.dob.HasValue ? a.dob.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
+                                    <tr id="student@{@a.AccountId}">
+                                        <td>@a.AccountId</td>
+                                        <td>@a.FullName</td>
+                                        <td>@(a.Gender == true ? "Male" : "Female")</td>
+                                        <td>@(a.Dob.HasValue ? a.Dob.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
                                         <td>
-                                            <a href="@Url.Action("StudentDetail", "Admin", new { id = a.account_id })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
-                                            <a onclick="checkDelete('@a.account_id','student')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
+                                            <a href="@Url.Action("StudentDetail", "Admin", new { id = a.AccountId })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                            <a onclick="checkDelete('@a.AccountId','student')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -92,7 +96,7 @@
                 </div>
 
                 <div class="nav-content__footer">
-                    @Html.PagedListPager(ViewBag.listStu as PagedList.IPagedList<Quizz.Models.EF.Account>, page => Url.Action("Index", new { page }))
+                    @Html.PagedListPager(ViewBag.listStu as PagedList.IPagedList<Quizz.Models.ViewModel.AccountViewModel>, page => Url.Action("Index", new { page }))
                 </div>
             </div>
         </div>
