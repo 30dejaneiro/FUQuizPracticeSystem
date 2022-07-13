@@ -15,34 +15,38 @@ namespace Toeic_Quizz.Controllers
         public ActionResult Index(int? page, string search)
         {
             var iplSubject = new SubjectDAO();
-            ViewBag.listSubject = iplSubject.SearchByPage(page, search);
+            ViewBag.listSubject = iplSubject.PageSubjects(page, search);
             return View();
         }
 
         public ActionResult SubjectDetail(int? page, string search, int subject)
         {
+            var iplBank = new BankDAO();
             var iplSubject = new SubjectDAO();
-            ViewBag.listQues = iplSubject.GetAllBankQuestion(page, search, subject);
-            ViewBag.nameSubject = iplSubject.GetSubjectName(subject);
+            ViewBag.listQues = iplBank.GetBanksBySubject(page, search, subject);
+            ViewBag.nameSubject = iplSubject.GetSubjectName(subject, 0);
             return View();
         }
         public ActionResult BanksDetail(int bank)
         {
+            var iplQuestion = new QuestionDAO();
             var iplSubject = new SubjectDAO();
-            ViewBag.listQues = iplSubject.GetQuestionsByBank(bank);
-            //ViewBag.nameSubject = iplSubject.GetSubjectName(subject);
+            var iplBank = new BankDAO();
+            ViewBag.nameSubject = iplSubject.GetSubjectName(0, bank);
+            ViewBag.nameBank = iplBank.GetBankName(bank);
+            ViewBag.listQues = iplQuestion.GetQuestionsByBank(bank);
             return View();
         }
 
         public ActionResult UserProfile(string id)
         {
+            var iplUser = new UserDAO();
             var accId = Session["account"].ToString();
             if (accId != id)
             {
                 return RedirectToAction("Index", "NotFound");
             }
-            var iplAdmin = new AdminDAO();
-            var student = iplAdmin.GetStudentById(id);
+            var student = iplUser.GetUserById(id);
             return View(student);
         }
 
@@ -53,8 +57,8 @@ namespace Toeic_Quizz.Controllers
 
         public ActionResult Scores(string id, int? page)
         {
-            var iplSubject = new SubjectDAO();
-            ViewBag.listScore = iplSubject.GetScoresByAccount(id, page);
+            var iplScore = new ScoreDAO();
+            ViewBag.listScore = iplScore.GetScoresByAccount(id, page);
             return View();
         }
 
@@ -92,19 +96,19 @@ namespace Toeic_Quizz.Controllers
         }
 
         [HttpPost]
-        public ActionResult UserProfile(Account st)
+        public ActionResult UserProfile(AccountViewModel st)
         {
-            AdminDAO admin = new AdminDAO();
+            var iplUser = new UserDAO();
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("account_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
-                bool check = admin.SaveOrUpdate(st, st.account_id);
+                bool check = iplUser.UserAOU(st, st.AccountId);
                 if (check == true)
                 {
                     SetAlert("Update success!!!", "success");
-                    if (st.account_id != "1")
+                    if (st.AccountId != "1")
                     {
-                        Session["fullName"] = st.full_name;
+                        Session["fullName"] = st.FullName;
                     }
                 }
                 else
@@ -115,7 +119,7 @@ namespace Toeic_Quizz.Controllers
             }
             else
             {
-                var student = admin.GetStudentById(st.account_id);
+                var student = iplUser.GetUserById(st.AccountId);
                 return View(student);
             }
         }

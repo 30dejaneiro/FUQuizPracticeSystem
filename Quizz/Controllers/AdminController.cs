@@ -15,226 +15,44 @@ namespace Quizz.Controllers
         // GET: Admin
         public ActionResult Index(int? page, string search)
         {
-            var iplAdmin = new AdminDAO();
-            ViewBag.listStu = iplAdmin.PageStudent(page, search);
-            return View();
-        }
-
-        public ActionResult SubjectList(int? page, string search)
-        {
-            var iplAdmin = new AdminDAO();
-            ViewBag.listSubjects = iplAdmin.PageSubject(page, search);
-            return View();
-        }
-
-        public ActionResult ScoreList(int? page)
-        {
-            var iplAdmin = new AdminDAO();
-            ViewBag.listScore = iplAdmin.PageScore(page);
-            return View();
-        }
-
-        public ActionResult BankList(int? page, string search)
-        {
-            var iplAdmin = new AdminDAO();
-            ViewBag.listBank = iplAdmin.PageBank(page, search);
+            var iplUser = new UserDAO();
+            ViewBag.listStu = iplUser.PageUsers(page, search);
             return View();
         }
 
         [HttpGet]
         public ActionResult StudentDetail(string id)
         {
-            var iplAdmin = new AdminDAO();
-            var student = iplAdmin.GetStudentById(id);
-            return View(student);
-        }
-        public ActionResult SubjectDetail(int? id)
-        {
-            var iplAdmin = new AdminDAO();
-            var subject = iplAdmin.GetSubjectById(id);
-            return View(subject);
-        }
-
-        public ActionResult BankDetail(int? id)
-        {
-            var iplAdmin = new AdminDAO();
-            var iplSubject = new SubjectDAO();
-            var bank = iplAdmin.GetBankById(id);
-            ViewBag.listSubject = iplSubject.GetAllSubjects();
-            return View(bank);
-        }
-        [HttpPost]
-        public ActionResult BankDetail(BankViewModel bq)
-        {
-            var iplAdmin = new AdminDAO();
-            var session = Session["account"].ToString();
-            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("Bank_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
-            if (errors.Length == 0)
-            {
-                iplAdmin.BankAOU(bq, bq.BankId, session);
-                SetAlert(bq.BankId == null ? "Create success!!!" : "Update success!!!", "success");
-                return RedirectToAction(bq.BankId == null ? "BankList" : "BankDetail", "Admin", new { id = bq.BankId == 0 ? -1 : bq.BankId });
-            }
-            else
-            {
-                var iplSubject = new SubjectDAO();
-                var bank = iplAdmin.GetBankById(bq.BankId);
-                ViewBag.listSubject = iplSubject.GetAllSubjects();
-                return View();
-            }
+            var iplUser = new UserDAO();
+            var user = iplUser.GetUserById(id);
+            return View(user);
         }
 
         [HttpPost]
-        public ActionResult SubjectDetail(Subject s)
+        public ActionResult StudentDetail(AccountViewModel st)
         {
-            var iplAdmin = new AdminDAO();
-            var session = Session["account"].ToString();
-            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("subject_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
-            if (errors.Length == 0)
-            {
-                iplAdmin.SubjectAOU(s, s.subject_id, session);
-                SetAlert(s.subject_id == 0 ? "Create success!!!" : "Update success!!!", "success");
-                return RedirectToAction(s.subject_id == 0 ? "SubjectList" : "SubjectDetail", "Admin", new { id = s.subject_id == 0 ? -1 : s.subject_id });
-            }
-            else
-            {
-                return View();
-            }
-        }
-
-        public ActionResult TestList(int? page)
-        {
-            var iplAdmin = new AdminDAO();
-            ViewBag.listTest = iplAdmin.PageTest(page);
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult TestDetail(int id)
-        {
-            var iplAdmin = new AdminDAO();
-            var test = iplAdmin.GetTestById(id);
-            return View(test);
-        }
-
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult TestDetail(Exam vm)
-        {
-            var iplAdmin = new AdminDAO();
-            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("exam_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
-            if (errors.Length == 0)
-            {
-                int status = iplAdmin.TestAOU(vm, vm.exam_id);
-                if (status == 1)
-                {
-                    SetAlert(vm.exam_id == 0 ? "Create success!!!" : "Update success!!!", "success");
-                    return RedirectToAction(vm.exam_id == 0 ? "TestList" : "TestDetail", "Admin", new { id = vm.exam_id == 0 ? -1 : vm.exam_id });
-                }
-                else
-                {
-                    SetAlert("Code already exist!", "warning");
-                    return View();
-                }
-            }
-            else
-            {
-                return View();
-            }
-        }
-
-        public ActionResult QuestionList(int? page, string search)
-        {
-            var iplAdmin = new AdminDAO();
-            ViewBag.listQuestion = iplAdmin.PageQuestion(page, search);
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult QuestionDetail(int id)
-        {
-            var iplAdmin = new AdminDAO();
-            var iplBank = new ProfileDAO();
-            var lecture = iplAdmin.GetQuestionById(id);
-            ViewBag.listBank = iplBank.GetAllBanks();
-            return View(lecture);
-        }
-
-        [HttpPost]
-        public ActionResult QuestionDetail(QuestionViewModel qs)
-        {
-            var iplAdmin = new AdminDAO();
-            var iplBank = new ProfileDAO();
-            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("question_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
-            if (errors.Length == 0)
-            {
-                bool check = iplAdmin.QuestionAOU(qs);
-                if (check == true)
-                {
-                    SetAlert(qs.QuestionId == null ? "Create success!!!" : "Update success!!!", "success");
-                }
-                else
-                {
-                    SetAlert(qs.QuestionId == null ? "Create fail!!!" : "Update fail!!!", "error");
-                }
-                return RedirectToAction(qs.QuestionId == null ? "QuestionList" : "QuestionDetail", "Admin", new { id = qs.QuestionId == null ? -1 : qs.QuestionId });
-            }
-            else
-            {
-                ViewBag.listBank = iplBank.GetAllBanks();
-                return View();
-            }
-        }
-
-        [HttpPost]
-        public ActionResult StudentDetail(Account st)
-        {
-            AdminDAO admin = new AdminDAO();
+            var iplUser = new UserDAO();
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("account_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
-                bool check = admin.SaveOrUpdate(st, st.account_id);
+                bool check = iplUser.UserAOU(st, st.AccountId);
                 if (check == true)
                 {
-                    SetAlert(st.account_id == null ? "Create success!!!" : "Update success!!!", "success");
-                    Session["fullName"] = st.full_name;
+                    SetAlert(st.AccountId == null ? "Create success!!!" : "Update success!!!", "success");
+                    Session["fullName"] = st.FullName;
                 }
                 else
                 {
-                    SetAlert(st.account_id == null ? "Create fail!!!" : "Update fail!!!", "error");
+                    SetAlert(st.AccountId == null ? "Create fail!!!" : "Update fail!!!", "error");
                 }
-                return RedirectToAction(st.account_id == null ? "Index" : "StudentDetail", "Admin", new { id = st.account_id ?? "" });
+                return RedirectToAction(st.AccountId == null ? "Index" : "StudentDetail", "Admin", new { id = st.AccountId ?? "" });
             }
             else
             {
-                var student = admin.GetStudentById(st.account_id);
+                var student = iplUser.GetUserById(st.AccountId);
                 return View(student);
             }
         }
-
-        [HttpPost]
-        public JsonResult ResetPassword(string roleNum)
-        {
-            using (QuizzDbContext db = new QuizzDbContext())
-            {
-                AdminDAO admin = new AdminDAO();
-                var check = (from q in db.Accounts where q.account_id.Equals(roleNum) select q).FirstOrDefault();
-                if (check != null)
-                {
-                    check.password = "123";
-                    db.SaveChanges();
-                    SetAlert("Reset successfully! New password id: 123", "success");
-                    return Json(new { mess = true });
-                }
-                else
-                {
-                    SetAlert("Reset fail!!!", "error");
-                    return Json(new { mess = false });
-                }
-            }
-        }
-
 
         [HttpPost]
         public JsonResult DeleteStudent(string id)
@@ -256,7 +74,6 @@ namespace Quizz.Controllers
                         SetAlert("Delete failt!!!PLease delete all detail of this account", "warning");
                         return Json(new { mess = false });
                     }
-
                 }
                 else
                 {
@@ -266,50 +83,35 @@ namespace Quizz.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult DeleteTest(int id)
+        public ActionResult SubjectList(int? page, string search)
         {
-            using (QuizzDbContext db = new QuizzDbContext())
-            {
-                var check = from q in db.Exams where q.exam_id == id select q;
-                bool message = false;
-                if (check != null)
-                {
-                    try
-                    {
-                        db.Exams.Remove(check.FirstOrDefault());
-                        db.SaveChanges();
-                        SetAlert("Delete successfully!", "success");
-                        message = true;
-                    }
-                    catch (Exception)
-                    {
-                        SetAlert("Delete fail!!!", "error");
-                        message = false;
-                    }
-                }
-                return Json(new { mess = message });
-            }
+            var iplSubject = new SubjectDAO();
+            ViewBag.listSubjects = iplSubject.PageSubjects(page, search);
+            return View();
+        }
+
+        public ActionResult SubjectDetail(int? id)
+        {
+            var iplSubject = new SubjectDAO();
+            var subject = iplSubject.GetSubjectById(id);
+            return View(subject);
         }
 
         [HttpPost]
-        public JsonResult DeleteQuestion(int id)
+        public ActionResult SubjectDetail(Subject s)
         {
-            using (QuizzDbContext db = new QuizzDbContext())
+            var iplSubject = new SubjectDAO();
+            var session = Session["account"].ToString();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("subject_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
             {
-                var check = from q in db.Questions where q.question_id == id select q;
-                if (check != null)
-                {
-                    db.Questions.Remove(check.FirstOrDefault());
-                    db.SaveChanges();
-                    SetAlert("Delete successfully!", "success");
-                    return Json(new { mess = true });
-                }
-                else
-                {
-                    SetAlert("Delete fail!!!", "error");
-                    return Json(new { mess = false });
-                }
+                iplSubject.SubjectAOU(s, s.subject_id, session);
+                SetAlert(s.subject_id == 0 ? "Create success!!!" : "Update success!!!", "success");
+                return RedirectToAction(s.subject_id == 0 ? "SubjectList" : "SubjectDetail", "Admin", new { id = s.subject_id == 0 ? -1 : s.subject_id });
+            }
+            else
+            {
+                return View();
             }
         }
 
@@ -334,6 +136,43 @@ namespace Quizz.Controllers
             }
         }
 
+        public ActionResult BankList(int? page, string search)
+        {
+            var iplBank = new BankDAO();
+            ViewBag.listBank = iplBank.PageBanks(page, search);
+            return View();
+        }
+        public ActionResult BankDetail(int? id)
+        {
+            var iplBank = new BankDAO();
+            var iplSubject = new SubjectDAO();
+            var bank = iplBank.GetBankById(id);
+            ViewBag.listSubject = iplSubject.GetSubjects();
+            return View(bank);
+        }
+
+        [HttpPost]
+        public ActionResult BankDetail(BankViewModel bq)
+        {
+            var iplBank = new BankDAO();
+            var iplSubject = new SubjectDAO();
+
+            var session = Session["account"].ToString();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("Bank_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
+            {
+                iplBank.BankAOU(bq, bq.BankId, session);
+                SetAlert(bq.BankId == null ? "Create success!!!" : "Update success!!!", "success");
+                return RedirectToAction(bq.BankId == null ? "BankList" : "BankDetail", "Admin", new { id = bq.BankId == 0 ? -1 : bq.BankId });
+            }
+            else
+            {
+                var bank = iplBank.GetBankById(bq.BankId);
+                ViewBag.listSubject = iplSubject.GetSubjects();
+                return View();
+            }
+        }
+
         [HttpPost]
         public JsonResult DeleteBank(int id)
         {
@@ -350,6 +189,230 @@ namespace Quizz.Controllers
                 catch (Exception)
                 {
                     SetAlert("Delete failture! Please delete all question belong this bank", "error");
+                    return Json(new { mess = false });
+                }
+            }
+        }
+
+        public ActionResult QuestionList(int? page, string search)
+        {
+            var iplQuestion = new QuestionDAO();
+            ViewBag.listQuestion = iplQuestion.PageQuestion(page, search);
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult QuestionDetail(int id)
+        {
+            var iplQuestion = new QuestionDAO();
+            var iplBank = new BankDAO();
+            var lecture = iplQuestion.GetQuestionById(id);
+            ViewBag.listBank = iplBank.GetBanks();
+            return View(lecture);
+        }
+
+        [HttpPost]
+        public ActionResult QuestionDetail(QuestionViewModel qs)
+        {
+            var iplQuestion = new QuestionDAO();
+            var iplBank = new BankDAO();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("question_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
+            {
+                bool check = iplQuestion.QuestionAOU(qs);
+                if (check == true)
+                {
+                    SetAlert(qs.QuestionId == null ? "Create success!!!" : "Update success!!!", "success");
+                }
+                else
+                {
+                    SetAlert(qs.QuestionId == null ? "Create fail!!!" : "Update fail!!!", "error");
+                }
+                return RedirectToAction(qs.QuestionId == null ? "QuestionList" : "QuestionDetail", "Admin", new { id = qs.QuestionId == null ? -1 : qs.QuestionId });
+            }
+            else
+            {
+                ViewBag.listBank = iplBank.GetBanks();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteQuestion(int id)
+        {
+            using (QuizzDbContext db = new QuizzDbContext())
+            {
+                var check = from q in db.Questions where q.question_id == id select q;
+                if (check != null)
+                {
+                    db.Questions.Remove(check.FirstOrDefault());
+                    db.SaveChanges();
+                    SetAlert("Delete successfully!", "success");
+                    return Json(new { mess = true });
+                }
+                else
+                {
+                    SetAlert("Delete fail!!!", "error");
+                    return Json(new { mess = false });
+                }
+            }
+        }
+
+        public ActionResult TestList(int? page)
+        {
+            var iplTest = new TestDAO();
+            ViewBag.listTest = iplTest.PageTests(page);
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult TestDetail(int id)
+        {
+            var iplTest = new TestDAO();
+            var test = iplTest.GetTestById(id);
+            return View(test);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TestDetail(Exam vm)
+        {
+            var iplTest = new TestDAO();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("exam_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
+            {
+                int status = iplTest.TestAOU(vm, vm.exam_id);
+                if (status == 1)
+                {
+                    SetAlert(vm.exam_id == 0 ? "Create success!!!" : "Update success!!!", "success");
+                    return RedirectToAction(vm.exam_id == 0 ? "TestList" : "TestDetail", "Admin", new { id = vm.exam_id == 0 ? -1 : vm.exam_id });
+                }
+                else
+                {
+                    SetAlert("Code already exist!", "warning");
+                    return View();
+                }
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteTest(int id)
+        {
+            using (QuizzDbContext db = new QuizzDbContext())
+            {
+                var check = from q in db.Exams where q.exam_id == id select q;
+                bool message = false;
+                if (check != null)
+                {
+                    try
+                    {
+                        db.Exams.Remove(check.FirstOrDefault());
+                        db.SaveChanges();
+                        SetAlert("Delete successfully!", "success");
+                        message = true;
+                    }
+                    catch (Exception)
+                    {
+                        SetAlert("Delete fail!", "warning");
+                        message = false;
+                    }
+                }
+                return Json(new { mess = message });
+            }
+        }
+
+        public ActionResult ExamQuestions(int? page, string search)
+        {
+            var iplQuestion = new ExamQuestionDAO();
+            ViewBag.listQuestion = iplQuestion.PageQuestion(page, search);
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult ExamQuestionDetail(int id)
+        {
+            var iplQuestion = new ExamQuestionDAO();
+            var iplTest = new TestDAO();
+            var ques = iplQuestion.GetQuestionById(id);
+            ViewBag.listBank = iplTest.GetTests();
+            return View(ques);
+        }
+
+        [HttpPost]
+        public ActionResult ExamQuestionDetail(ExamQuestionModel qs)
+        {
+            var iplQuestion = new ExamQuestionDAO();
+            var iplTest = new TestDAO();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("exam_ques_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
+            {
+                bool check = iplQuestion.QuestionAOU(qs);
+                if (check == true)
+                {
+                    SetAlert(qs.ExamQuestionId == null ? "Create success!!!" : "Update success!!!", "success");
+                }
+                else
+                {
+                    SetAlert(qs.ExamQuestionId == null ? "Create fail!!!" : "Update fail!!!", "error");
+                }
+                return RedirectToAction(qs.ExamQuestionId == null ? "ExamQuestions" : "ExamQuestionDetail", "Admin", new { id = qs.ExamQuestionId == null ? -1 : qs.ExamQuestionId });
+            }
+            else
+            {
+                ViewBag.listBank = iplTest.GetTests();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteExamQuestion(int id)
+        {
+            using (QuizzDbContext db = new QuizzDbContext())
+            {
+                var check = from q in db.ExamsQues where q.exam_ques_id == id select q;
+                if (check != null)
+                {
+                    db.ExamsQues.Remove(check.FirstOrDefault());
+                    db.SaveChanges();
+                    SetAlert("Delete successfully!", "success");
+                    return Json(new { mess = true });
+                }
+                else
+                {
+                    SetAlert("Delete fail!!!", "error");
+                    return Json(new { mess = false });
+                }
+            }
+        }
+
+        public ActionResult ScoreList(int? page)
+        {
+            var iplScore = new ScoreDAO();
+            ViewBag.listScore = iplScore.PageScores(page);
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ResetPassword(string roleNum)
+        {
+            using (QuizzDbContext db = new QuizzDbContext())
+            {
+                var check = (from q in db.Accounts where q.account_id.Equals(roleNum) select q).FirstOrDefault();
+                if (check != null)
+                {
+                    check.password = "123";
+                    db.SaveChanges();
+                    SetAlert("Reset successfully! New password id: 123", "success");
+                    return Json(new { mess = true });
+                }
+                else
+                {
+                    SetAlert("Reset fail!!!", "error");
                     return Json(new { mess = false });
                 }
             }

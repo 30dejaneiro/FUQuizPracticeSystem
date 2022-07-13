@@ -8,7 +8,7 @@ namespace Quizz.Models.EF
     public partial class QuizzDbContext : DbContext
     {
         public QuizzDbContext()
-            : base("name=QuizzDbContext1")
+            : base("name=QuizzDbContext2")
         {
         }
 
@@ -22,6 +22,10 @@ namespace Quizz.Models.EF
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ExamsQue>()
+                .Property(e => e.answer)
+                .IsUnicode(false);
+
             modelBuilder.Entity<Question>()
                 .Property(e => e.answer)
                 .IsUnicode(false);

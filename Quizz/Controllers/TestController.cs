@@ -41,7 +41,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
-        public JsonResult CheckQuestion(string code,List<QuestionAnswer> data)
+        public JsonResult CheckQuestion(string code, List<QuestionAnswer> data, int totalQuestion)
         {
             using (QuizzDbContext db = new QuizzDbContext())
             {
@@ -56,7 +56,7 @@ namespace Quizz.Controllers
                         var ques = (from q in db.Questions where q.question_id == item.QuestionId select q).FirstOrDefault();
                         if (item.UserAnswer == ques.answer)
                         {
-                            score += 5;
+                            score += (100 / totalQuestion);
                         }
                     }
                     Score s = new Score()

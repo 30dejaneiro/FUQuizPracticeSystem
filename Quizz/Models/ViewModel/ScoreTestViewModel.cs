@@ -11,6 +11,7 @@ namespace Quizz.Models.ViewModel
         public string TestCode { get; set; }
         public string AccountId { get; set; }
         public DateTime? DateTest { get; set; }
+        public int TotalQues { get; set; }
         public int TotalScore { get; set; }
     }
 }

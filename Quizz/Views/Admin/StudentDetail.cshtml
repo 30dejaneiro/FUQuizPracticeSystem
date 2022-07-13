@@ -1,4 +1,4 @@
-﻿@model Quizz.Models.EF.Account
+﻿@model Quizz.Models.ViewModel.AccountViewModel
 @{
     ViewBag.Title = "Save Student";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -32,6 +32,10 @@
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Exam Questions", "ExamQuestions", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
@@ -60,35 +64,35 @@
                     <div class="nav-content__body-form">
                         <div class="nav-content__table-save">
                             <div style="display: flex; justify-content: space-evenly;width: 100%">
-                                @Html.HiddenFor(m => m.account_id)
+                                @Html.HiddenFor(m => m.AccountId)
                                 <div>
                                     <div class="form__group">
-                                        @Html.LabelFor(m => m.full_name, "Full Name:")
-                                        @Html.TextBoxFor(m => m.full_name, new { @class = "form__control", @placeholder = "Full name", @autofocus = "autofocus" })
-                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.full_name)</span>
+                                        @Html.LabelFor(m => m.FullName, "Full Name:")
+                                        @Html.TextBoxFor(m => m.FullName, new { @class = "form__control", @placeholder = "Full name", @autofocus = "autofocus" })
+                                        <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.FullName)</span>
                                     </div>
                                     <div class="form__group">
-                                        @Html.LabelFor(m => m.dob, "Date of birth:")
-                                        @Html.TextBoxFor(m => m.dob, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form__control", @autofocus = "autofocus" })
+                                        @Html.LabelFor(m => m.Dob, "Date of birth:")
+                                        @Html.TextBoxFor(m => m.Dob, "{0:yyyy-MM-dd}", new { @type = "date", @class = "form__control", @autofocus = "autofocus" })
                                     </div>
                                     <div class="form__group" style="display: flex">
-                                        @Html.LabelFor(model => model.gender, "Gender:")
+                                        @Html.LabelFor(model => model.Gender, "Gender:")
                                         @if (@Request.Url.Segments.Length > 3)
                                         {
                                             <div class="col-md-10" style="margin-top: 10px">
                                                 Male
-                                                @Html.RadioButtonFor(m => m.gender, true)
+                                                @Html.RadioButtonFor(m => m.Gender, true)
                                                 Female
-                                                @Html.RadioButtonFor(m => m.gender, false)
+                                                @Html.RadioButtonFor(m => m.Gender, false)
                                             </div>
                                         }
                                         else
                                         {
                                             <div class="col-md-10" style="margin-top: 10px">
                                                 Male
-                                                @Html.RadioButtonFor(m => m.gender, true, new { @checked = true })
+                                                @Html.RadioButtonFor(m => m.Gender, true, new { @checked = true })
                                                 Female
-                                                @Html.RadioButtonFor(m => m.gender, false)
+                                                @Html.RadioButtonFor(m => m.Gender, false)
                                             </div>
                                         }
                                     </div>
@@ -96,46 +100,46 @@
                                 <div>
                                     @if (@Request.Url.Segments.Length > 3)
                                     {
-                                        @Html.HiddenFor(m => m.username)
-                                        @Html.HiddenFor(m => m.password)
+                                        @Html.HiddenFor(m => m.Username)
+                                        @Html.HiddenFor(m => m.Password)
                                         <div class="form__group">
-                                            @Html.LabelFor(m => m.account_id, "Student Id:")
-                                            @Html.TextBoxFor(m => m.account_id, new { @class = "form__control", @placeholder = "Student Id", @disabled = "true" })
+                                            @Html.LabelFor(m => m.AccountId, "Student Id:")
+                                            @Html.TextBoxFor(m => m.AccountId, new { @class = "form__control", @placeholder = "Student Id", @disabled = "true" })
                                         </div>
                                         <div class="form__group">
-                                            @Html.LabelFor(m => m.role, "Role:")
+                                            @Html.LabelFor(m => m.Role, "Role:")
                                             <div class="col-md-10" style="margin-top: 10px">
                                                 Admin
-                                                @Html.RadioButtonFor(model => model.role, true)
+                                                @Html.RadioButtonFor(model => model.Role, true)
                                                 Student
-                                                @Html.RadioButtonFor(model => model.role, false)
+                                                @Html.RadioButtonFor(model => model.Role, false)
                                             </div>
                                         </div>
                                         <div class="form__group">
                                             <div class="col-md-10" style="margin-top: 10px">
-                                                <button type="button" class="btn btn__save" onclick="resetPassword('@Model.account_id')">Reset password</button>
+                                                <button type="button" class="btn btn__save" onclick="resetPassword('@Model.AccountId')">Reset password</button>
                                             </div>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="form__group">
-                                            @Html.LabelFor(m => m.username, "Username:")
-                                            @Html.TextBoxFor(m => m.username, new { @class = "form__control", @placeholder = "Username" })
-                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.username)</span>
+                                            @Html.LabelFor(m => m.Username, "Username:")
+                                            @Html.TextBoxFor(m => m.Username, new { @class = "form__control", @placeholder = "Username" })
+                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.Username)</span>
                                         </div>
                                         <div class="form__group">
-                                            @Html.LabelFor(m => m.password, "Password:")
-                                            @Html.TextBoxFor(m => m.password, new { @class = "form__control", @placeholder = "Password", @autofocus = "autofocus", type = "password" })
-                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.password)</span>
+                                            @Html.LabelFor(m => m.Password, "Password:")
+                                            @Html.TextBoxFor(m => m.Password, new { @class = "form__control", @placeholder = "Password", @autofocus = "autofocus", type = "password" })
+                                            <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.Password)</span>
                                         </div>
                                         <div class="form__group">
-                                            @Html.LabelFor(m => m.role, "Role:")
+                                            @Html.LabelFor(m => m.Role, "Role:")
                                             <div class="col-md-10" style="margin-top: 10px">
                                                 Admin
-                                                @Html.RadioButtonFor(model => model.role, true)
+                                                @Html.RadioButtonFor(model => model.Role, true)
                                                 Student
-                                                @Html.RadioButtonFor(model => model.role, false, new { @checked = true })
+                                                @Html.RadioButtonFor(model => model.Role, false, new { @checked = true })
                                             </div>
                                         </div>
                                     }

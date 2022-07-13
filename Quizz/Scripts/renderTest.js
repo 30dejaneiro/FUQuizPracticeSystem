@@ -63,6 +63,8 @@ function showResult(answer) {
 
 function handleChange(src, QuestionId) {
     var data = localStorage.getItem("data");
+    const questions = [...$(".test__question-wrapper")];
+
     if (data != null) {
         let newObj = JSON.parse(data);
         let findItem = newObj.findIndex(item => item.QuestionId === QuestionId);
@@ -71,6 +73,8 @@ function handleChange(src, QuestionId) {
         } else {
             newObj[findItem].UserAnswer = src.value;
         }
+        console.log(questions[QuestionId - 1])
+        questions[QuestionId - 1].classList.add("test__question--choose")
         localStorage.setItem("data", JSON.stringify(newObj));
     } else {
         let arr = [];
@@ -89,18 +93,17 @@ function submitTest(code, timeOut) {
     if (answer == true || timeOut == true) {
         result.forEach((item) => {
             if (item.UserAnswer === item.answer) {
-                score += 5;
+                score += (100 / totalQuestion);
             }
         })
         $.ajax({
             url: "/Test/CheckQuestion",
             dataType: "json",
             type: "POST",
-            data: { score: score, code: code, data },
+            data: { score: score, code: code, data, totalQuestion: totalQuestion },
             success: function (res) {
                 if (res.mess === true) {
                     window.location.href = "/Test/Index";
-                    alert((timeOut == true ? "You're run out of time" : "You're done") + "! You can go to profile to see your score");
                 } else {
                     window.location.href = "/NotFound/Index";
                 }

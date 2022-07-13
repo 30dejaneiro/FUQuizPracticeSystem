@@ -23,9 +23,7 @@ CREATE TABLE Exams
 	date_created DATETIME NULL,
 )
 
-INSERT INTO Exams VALUES ('ABC121','00:30:00',5,0,'28 May 2022')
-INSERT INTO Exams VALUES ('ABC122','00:45:00',5,0,'28 May 2022')
-INSERT INTO Exams VALUES ('ABC123','01:00:00',5,0,'28 May 2022')
+INSERT INTO Exams VALUES ('ABC121','00:30:00',4,0,'28 May 2022')
 
 CREATE TABLE Accounts
 (
@@ -64,10 +62,6 @@ CREATE TABLE Scores
 	account_id NVARCHAR(30) FOREIGN KEY (account_id) REFERENCES Accounts(account_id),
 	[date_test] DATETIME NULL,	
 )
-
-INSERT INTO Scores VALUES (0,1,N'MS002','28 May 2022')
-INSERT INTO Scores VALUES (0,2,N'MS003','28 May 2022')
-INSERT INTO Scores VALUES (0,3,N'MS004','28 May 2022')
 
 CREATE TABLE BankQuestions
 (
@@ -115,11 +109,17 @@ CREATE TABLE ExamsQues
 (
 	exam_ques_id INT IDENTITY(1,1) PRIMARY KEY,
 	exam_id INT FOREIGN KEY (exam_id) REFERENCES Exams(exam_id),
-	question_id INT FOREIGN KEY (question_id) REFERENCES Questions(question_id),
+	content NVARCHAR(max) NOT NULL,
+	A NVARCHAR(max) NOT NULL,
+	B NVARCHAR(max) NOT NULL,
+	C NVARCHAR(max) NOT NULL,
+	D NVARCHAR(max) NOT NULL,
+	answer VARCHAR(5) NOT NULL,
 )
 
-INSERT INTO ExamsQues VALUES (1,1)
-INSERT INTO ExamsQues VALUES (1,4)
-INSERT INTO ExamsQues VALUES (1,5)
-INSERT INTO ExamsQues VALUES (1,6)
+INSERT INTO ExamsQues VALUES (1,N'Transportation officials tell us that 70% of drivers wear seat belts while driving. Find the probability that more than 579 drivers in a sample of 800 drivers wear seat belts. Let P(Z < 1.5) = 0.0668; P(Z<0.25) = 0.6',N'0.0668', N'0.9332',N'0.4',N'0.6','B')
+INSERT INTO ExamsQues VALUES (1,N'Suppose X is a uniform random variable over the interval [40, 50). Find the probability that a randomly selected observation exceeds 43.',N'0.3', N'0.1',N'0.7',N'0.9','C')
+INSERT INTO ExamsQues VALUES (1,N'A card is drawn from a standard deck of 52 playing cards. Find the probability that the card is an ace or a king.',N'1/13', N'3/13',N'4/13',N'2/13','D')
+INSERT INTO ExamsQues VALUES (1,N'A pair of dice is thrown twice. What is the probability of getting totals of 7 and 11?',N'1/54', N'1/24',N'1/18',N'1/14','A')
+
 

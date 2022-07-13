@@ -423,8 +423,14 @@
 
 .test__question--active .test__question-button {
     border: none;
-    background-color: var(--second-color);
-    color: var(--white-color);
+    background-color: var(--second-color) !important;
+    color: var(--white-color) !important;
+}
+
+.test__question--choose .test__question-button {
+    border: none;
+    background-color: #ccc;
+    color: #333;
 }
 
 .test__ques_action {

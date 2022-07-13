@@ -145,8 +145,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DAO\AdminDAO.cs" />
-    <Compile Include="Models\DAO\ProfileDAO.cs" />
+    <Compile Include="Models\DAO\ExamQuestionDAO.cs" />
+    <Compile Include="Models\DAO\UserDAO.cs" />
+    <Compile Include="Models\DAO\BankDAO.cs" />
+    <Compile Include="Models\DAO\QuestionDAO.cs" />
+    <Compile Include="Models\DAO\ScoreDAO.cs" />
     <Compile Include="Models\DAO\SubjectDAO.cs" />
     <Compile Include="Models\DAO\TestDAO.cs" />
     <Compile Include="Models\EF\Account.cs" />
@@ -157,10 +160,12 @@
     <Compile Include="Models\EF\QuizzDbContext.cs" />
     <Compile Include="Models\EF\Score.cs" />
     <Compile Include="Models\EF\Subject.cs" />
+    <Compile Include="Models\ViewModel\AccountViewModel.cs" />
     <Compile Include="Models\ViewModel\AuthViewModel.cs" />
     <Compile Include="Models\ViewModel\BankViewModel.cs" />
     <Compile Include="Models\ViewModel\ChangePassViewModel.cs" />
     <Compile Include="Models\ViewModel\CheckPractice.cs" />
+    <Compile Include="Models\ViewModel\ExamQuestionModel.cs" />
     <Compile Include="Models\ViewModel\QuestionAnswer.cs" />
     <Compile Include="Models\ViewModel\QuestionViewModel.cs" />
     <Compile Include="Models\ViewModel\ScoreTestViewModel.cs" />
@@ -226,6 +231,8 @@
     <Content Include="Views\Profile\BankDetail.cshtml" />
     <Content Include="Views\Profile\Questions.cshtml" />
     <Content Include="Views\Profile\QuestionDetail.cshtml" />
+    <Content Include="Views\Admin\ExamQuestions.cshtml" />
+    <Content Include="Views\Admin\ExamQuestionDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

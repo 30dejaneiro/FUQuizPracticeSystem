@@ -32,6 +32,10 @@
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Exam Questions", "ExamQuestions", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
@@ -51,8 +55,9 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Code</th>
-                                <th>Time Test</th>
+                                <th>Time test</th>
                                 <th>Total tested</th>
+                                <th>Total question</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -77,9 +82,8 @@
                                         <td>@a.exam_id</td>
                                         <td>@a.code</td>
                                         <td>@a.test_time.ToString(@"hh\:mm\:ss")</td>
-                                        @*<td>@a.reliability_exam</td>
-                                        <td>@a.level_of_test</td>*@
                                         <td>@a.total_tested</td>
+                                        <td>@a.num_of_ques</td>
                                         <td>
                                             <a href="@Url.Action("TestDetail", "Admin", new { id = a.exam_id })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
                                             <a onclick="checkDelete('@a.exam_id','test')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>

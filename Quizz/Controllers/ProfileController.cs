@@ -14,15 +14,15 @@ namespace Quizz.Controllers
         // GET: Bank
         public ActionResult MyBank(string id, int? page, string search)
         {
-            var iplProfile = new ProfileDAO();
-            ViewBag.listBank = iplProfile.PageBankById(id, page, search);
+            var iplBank = new BankDAO();
+            ViewBag.listBank = iplBank.PageBankByAccount(id, page, search);
             ViewBag.accId = id;
             return View();
         }
         public ActionResult Questions(string id, int? page, string search)
         {
-            var iplProfile = new ProfileDAO();
-            ViewBag.listQuestion = iplProfile.PageQuestionById(id, page, search);
+            var iplQuestion = new QuestionDAO();
+            ViewBag.listQuestion = iplQuestion.PageQuestionById(id, page, search);
             ViewBag.accId = id;
             return View();
         }
@@ -30,10 +30,11 @@ namespace Quizz.Controllers
         [HttpGet]
         public ActionResult QuestionDetail(int id, string aId)
         {
-            var iplAdmin = new AdminDAO();
-            var iplBank = new ProfileDAO();
-            var lecture = iplAdmin.GetQuestionById(id);
-            ViewBag.listBank = iplBank.GetAllBanks();
+            var iplBank = new BankDAO();
+            var iplQuestion = new QuestionDAO();
+
+            var lecture = iplQuestion.GetQuestionById(id);
+            ViewBag.listBank = iplBank.GetBanks();
             ViewBag.accId = aId;
             return View(lecture);
         }
@@ -41,13 +42,13 @@ namespace Quizz.Controllers
         [HttpPost]
         public ActionResult QuestionDetail(QuestionViewModel qs)
         {
-            var iplAdmin = new AdminDAO();
-            var iplBank = new ProfileDAO();
+            var iplBank = new BankDAO();
+            var iplQuestion = new QuestionDAO();
             var session = Session["account"].ToString();
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("question_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
-                bool check = iplAdmin.QuestionAOU(qs);
+                bool check = iplQuestion.QuestionAOU(qs);
                 if (check == true)
                 {
                     SetAlert(qs.QuestionId == null ? "Create success!!!" : "Update success!!!", "success");
@@ -67,7 +68,7 @@ namespace Quizz.Controllers
             }
             else
             {
-                ViewBag.listBank = iplBank.GetAllBanks();
+                ViewBag.listBank = iplBank.GetBanks();
                 ViewBag.accId = session;
                 return View();
             }
@@ -76,23 +77,26 @@ namespace Quizz.Controllers
 
         public ActionResult BankDetail(int? id, string aId)
         {
-            var iplAdmin = new AdminDAO();
+            var iplBank = new BankDAO();
             var iplSubject = new SubjectDAO();
-            var bank = iplAdmin.GetBankById(id);
+            var iplUser = new UserDAO();
+            var bank = iplBank.GetBankById(id);
             ViewBag.accId = aId;
-            ViewBag.listSubject = iplSubject.GetAllSubjects();
-            ViewBag.listAccount = iplSubject.GetAllAccount();
+            ViewBag.listSubject = iplSubject.GetSubjects();
+            ViewBag.listAccount = iplUser.GetAllAccount();
             return View(bank);
         }
         [HttpPost]
         public ActionResult BankDetail(BankViewModel bq)
         {
-            var iplAdmin = new AdminDAO();
+            var iplBank = new BankDAO();
+            var iplSubject = new SubjectDAO();
+
             var session = Session["account"].ToString();
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("Bank_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
-                iplAdmin.BankAOU(bq, bq.BankId, session);
+                iplBank.BankAOU(bq, bq.BankId, session);
                 SetAlert(bq.BankId == null ? "Create success!!!" : "Update success!!!", "success");
                 if (bq.BankId == null)
                 {
@@ -105,8 +109,7 @@ namespace Quizz.Controllers
             }
             else
             {
-                var iplSubject = new SubjectDAO();
-                ViewBag.listSubject = iplSubject.GetAllSubjects();
+                ViewBag.listSubject = iplSubject.GetSubjects();
                 ViewBag.accId = session;
                 return View();
             }

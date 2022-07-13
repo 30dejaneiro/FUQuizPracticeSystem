@@ -32,6 +32,10 @@
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Exam Questions", "ExamQuestions", "Admin", null, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Scores", "ScoreList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>

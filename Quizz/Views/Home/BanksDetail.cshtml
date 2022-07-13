@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "BanksDetail";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string nameSubject = ViewBag.nameSubject;
     int count = 1;
 }
 <div class="grid">
@@ -18,7 +19,9 @@
                     <div class="breadcrumb">
                         @Html.ActionLink("Subjects", "Index", "Home", null, new { @class = "breadcrumb-link" })
                         <span class="breadcrumb-separate"> > </span>
-                        <span class="breadcrumb-detail">@ViewBag.nameSubject</span>
+                        @Html.ActionLink(nameSubject, "SubjectDetail", "Home", null, new { @class = "breadcrumb-link" })
+                        <span class="breadcrumb-separate"> > </span>
+                        <span class="breadcrumb-detail">@ViewBag.nameBank</span>
                     </div>
                     <div class="nav-content__action">
                     </div>

@@ -1,8 +1,9 @@
 ﻿@using PagedList.Mvc
 @{
-    ViewBag.Title = "Subjects";
+    ViewBag.Title = "Exam Questions";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="grid">
     <div class="grid__row">
         <div class="grid__col-2">
@@ -13,7 +14,7 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Students", "Index", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item  sub-nav__item--active">
+                    <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Subjects", "SubjectList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
@@ -29,7 +30,7 @@
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Tests", "TestList", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
-                    <li class="sub-nav__item">
+                    <li class="sub-nav__item sub-nav__item--active">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
                         @Html.ActionLink("Exam Questions", "ExamQuestions", "Admin", null, new { @class = "sub-nav__link text" })
                     </li>
@@ -43,13 +44,13 @@
         <div class="grid__col-10">
             <div class="nav-content__wrapper">
                 <div class="nav-content__header">
-                    <h2 class="nav-content__title">Subjects</h2>
+                    <h2 class="nav-content__title">Questions</h2>
                     <div class="nav-content__action">
-                        <form class="search-form mr-10" asp-controller="Admin" asp-action="TopicDetail">
+                        <form class="search-form mr-10" asp-controller="Admin" asp-action="QuestionList">
                             <input type="text" class="search-form__input" placeholder="Searching..." name="search">
                             <button class="search-form__btn"><i class="fas fa-search search-form__icon"></i></button>
                         </form>
-                        @Html.ActionLink("Add", "SubjectDetail", "Admin", new { id = -1 }, new { @class = "search-form__btn btn__second" })
+                        @Html.ActionLink("Add", "ExamQuestionDetail", "Admin", new { id = -1 }, new { @class = "search-form__btn btn__second" })
                     </div>
                 </div>
                 <div class="nav-content__body">
@@ -57,33 +58,43 @@
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Total Bank</th>
-                                <th>Created By</th>
+                                <th>Question</th>
+                                <th>A</th>
+                                <th>B</th>
+                                <th>C</th>
+                                <th>D</th>
+                                <th>Exam Code</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @if (Enumerable.Count(ViewBag.listSubjects) == 0)
+                            @if (Enumerable.Count(ViewBag.listQuestion) == 0)
                             {
                                 <tr>
                                     <td></td>
+                                    <td></td>
+                                    <td></td>
                                     <td colspan="2"><span style="font-size: 2rem;height: 50px;display: block;line-height: 50px;">No data</span></td>
+                                    <td></td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                             }
                             else
                             {
-                                foreach (var a in (ViewBag.listSubjects as PagedList.IPagedList<Quizz.Models.ViewModel.SubjectViewModel>))
+                                foreach (var v in (ViewBag.listQuestion as PagedList.IPagedList<Quizz.Models.ViewModel.ExamQuestionModel>))
                                 {
-                                    <tr id="subject@{@a.SubjectId}">
-                                        <td>@a.SubjectId</td>
-                                        <td>@a.SubjectName</td>
-                                        <td>@a.TotalBank</td>
-                                        <td>@a.AccountId</td>
+                                    <tr id="examQues@{@v.ExamQuestionId}">
+                                        <td>@v.ExamQuestionId</td>
+                                        <td style="text-align: left">@v.QuestionContent</td>
+                                        <td>@v.A</td>
+                                        <td>@v.B</td>
+                                        <td>@v.C</td>
+                                        <td>@v.D</td>
+                                        <td>@v.ExamCode</td>
                                         <td>
-                                            <a href="@Url.Action("SubjectDetail", "Admin", new { id = a.SubjectId })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
-                                            <a onclick="checkDelete('@a.SubjectId','subject')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
+                                            <a href="@Url.Action("ExamQuestionDetail", "Admin", new { id = v.ExamQuestionId })" class="dashboard__table-action edit" title="Edit"><i class="fas fa-pen"></i></a>
+                                            <a onClick="checkDelete('@v.ExamQuestionId', 'examQues')" class="dashboard__table-action delete" title="Delete"><i class="fas fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 }
@@ -93,7 +104,7 @@
                 </div>
 
                 <div class="nav-content__footer">
-                    @Html.PagedListPager(ViewBag.listSubjects as PagedList.IPagedList<Quizz.Models.ViewModel.SubjectViewModel>, page => Url.Action("SubjectList", new { page }))
+                    @Html.PagedListPager(ViewBag.listQuestion as PagedList.IPagedList<Quizz.Models.ViewModel.ExamQuestionModel>, page => Url.Action("QuestionList", new { page }))
                 </div>
             </div>
         </div>
