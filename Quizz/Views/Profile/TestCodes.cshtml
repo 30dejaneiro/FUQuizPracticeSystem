@@ -1,0 +1,87 @@
+﻿@using PagedList.Mvc
+@{
+    ViewBag.Title = "Tests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string userId = "";
+    var userLogin = (Quizz.Common.UserLogin)HttpContext.Current.Session["account"];
+    if (userLogin != null)
+    {
+        userId = userLogin.UserID;
+    }
+}
+
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-2">
+            <div class="sub-nav">
+                <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
+                <ul class="sub-nav__list">
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("User Profile", "UserProfile", "Profile", new { id = userId }, new { @class = "sub-nav__link text", @id = "defaultOpen" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Change password", "ChangePassword", "Profile", new { id = userId }, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Scores", "Scores", "Profile", new { id = userId }, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item sub-nav__item--active">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Test Code", "TestCodes", "Profile", new { id = userId }, new { @class = "sub-nav__link text" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid__col-10">
+            <div class="nav-content__wrapper" id="student">
+                <div class="nav-content__header">
+                    <h2 class="nav-content__title">Tests</h2>
+                    <div class="nav-content__action">
+                        @Html.ActionLink("Add", "TestDetail", "Admin", new { id = -1 }, new { @class = "search-form__btn btn__second" })
+                    </div>
+                </div>
+                <div class="nav-content__body">
+                    <table class="nav-content__table" id="table_id">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Code</th>
+                                <th>Time test</th>
+                                <th>Total question</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Enumerable.Count(ViewBag.listTest) == 0)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2"><span style="font-size: 2rem;height: 50px;display: block;line-height: 50px;">No data</span></td>
+                                    <td></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var a in (ViewBag.listTest as PagedList.IPagedList<Quizz.Models.EF.Exam>))
+                                {
+                                    <tr id="test@{@a.exam_id}">
+                                        <td>@a.exam_id</td>
+                                        <td>@a.code</td>
+                                        <td>@a.test_time.ToString(@"hh\:mm\:ss")</td>
+                                        <td>@a.num_of_ques</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="nav-content__footer">
+                    @Html.PagedListPager(ViewBag.listTest as PagedList.IPagedList<Quizz.Models.EF.Exam>, page => Url.Action("TestList", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

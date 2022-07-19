@@ -104,6 +104,7 @@ function submitTest(code, timeOut) {
             success: function (res) {
                 if (res.mess === true) {
                     window.location.href = "/Test/Index";
+                    alert((timeOut == true ? "You're run out of time" : "You're done") + "! You can go to profile to see your score");
                 } else {
                     window.location.href = "/NotFound/Index";
                 }
@@ -136,9 +137,3 @@ if (countDown.length > 0) {
         timer2 = hour + ':' + minutes + ':' + seconds;
     }, 1000);
 }
-
-
-
-
-
-

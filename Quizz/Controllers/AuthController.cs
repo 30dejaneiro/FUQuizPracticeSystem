@@ -1,4 +1,5 @@
-﻿using Quizz.Models;
+﻿using Quizz.Common;
+using Quizz.Models;
 using Quizz.Models.EF;
 using Quizz.Models.ViewModel;
 using System;
@@ -26,9 +27,14 @@ namespace Toeic_Quizz.Controllers
                 var data = db.Accounts.Where(s => s.username.Equals(m.Account.username) && s.password.Equals(m.Account.password)).FirstOrDefault();
                 if (data != null)
                 {
-                    Session["account"] = data.account_id;
-                    Session["fullName"] = data.full_name;
-                    Session["role"] = data.role == true ? "Admin" : "Student";
+                    var RoleSession = new RoleLogin();
+                    RoleSession.Role = data.role ? 1 : 0;
+                    var UserSession = new UserLogin();
+                    UserSession.UserID = data.account_id;
+                    UserSession.UserName = data.full_name;
+                    // add session
+                    Session.Add("account", UserSession);
+                    Session.Add("role", RoleSession);
                     Session.Timeout = 60;
                     if (data.role)
                     {
