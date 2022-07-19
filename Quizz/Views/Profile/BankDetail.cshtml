@@ -15,7 +15,7 @@
                     </li>
                     <li class="sub-nav__item">
                         <i class="fas fa-caret-right sub-nav-active-icon"></i>
-                        @Html.ActionLink("Questions", "Questions", "Profile", null, new { @class = "sub-nav__link text" })
+                        @Html.ActionLink("Questions", "Questions", "Profile", new { id = ViewBag.accId }, new { @class = "sub-nav__link text" })
                     </li>
                 </ul>
             </div>

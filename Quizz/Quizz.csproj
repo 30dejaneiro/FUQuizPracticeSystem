@@ -135,6 +135,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\CheckCredentialAttribute.cs" />
+    <Compile Include="Common\RoleLogin.cs" />
+    <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -215,15 +218,15 @@
     <Content Include="Views\Admin\SubjectList.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Auth\SignUp.cshtml" />
-    <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Profile\ChangePassword.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\SubjectDetail.cshtml" />
-    <Content Include="Views\Home\UserProfile.cshtml" />
+    <Content Include="Views\Profile\UserProfile.cshtml" />
     <Content Include="Views\NotFound\Index.cshtml" />
     <Content Include="Views\Shared\_AuthLayout.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\Test\TestDetail.cshtml" />
-    <Content Include="Views\Home\Scores.cshtml" />
+    <Content Include="Views\Profile\Scores.cshtml" />
     <Content Include="Views\Home\BanksDetail.cshtml" />
     <Content Include="Views\Admin\BankList.cshtml" />
     <Content Include="Views\Admin\BankDetail.cshtml" />
@@ -233,6 +236,7 @@
     <Content Include="Views\Profile\QuestionDetail.cshtml" />
     <Content Include="Views\Admin\ExamQuestions.cshtml" />
     <Content Include="Views\Admin\ExamQuestionDetail.cshtml" />
+    <Content Include="Views\Profile\TestCodes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

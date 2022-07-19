@@ -1,4 +1,5 @@
-﻿using Quizz.Models.DAO;
+﻿using Quizz.Common;
+using Quizz.Models.DAO;
 using Quizz.Models.EF;
 using Quizz.Models.ViewModel;
 using System;
@@ -11,12 +12,13 @@ namespace Quizz.Controllers
 {
     public class TestController : BaseController
     {
-        // GET: Test
+        [CheckCredential(Role_ID = "2")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [CheckCredential(Role_ID = "2")]
         public ActionResult TestDetail(string code)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -41,6 +43,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "2")]
         public JsonResult CheckQuestion(string code, List<QuestionAnswer> data, int totalQuestion)
         {
             using (QuizzDbContext db = new QuizzDbContext())
