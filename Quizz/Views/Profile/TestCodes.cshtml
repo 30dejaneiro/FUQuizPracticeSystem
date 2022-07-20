@@ -39,9 +39,7 @@
             <div class="nav-content__wrapper" id="student">
                 <div class="nav-content__header">
                     <h2 class="nav-content__title">Tests</h2>
-                    <div class="nav-content__action">
-                        @Html.ActionLink("Add", "TestDetail", "Admin", new { id = -1 }, new { @class = "search-form__btn btn__second" })
-                    </div>
+                    <div class="nav-content__action"></div>
                 </div>
                 <div class="nav-content__body">
                     <table class="nav-content__table" id="table_id">
@@ -79,7 +77,7 @@
                 </div>
 
                 <div class="nav-content__footer">
-                    @Html.PagedListPager(ViewBag.listTest as PagedList.IPagedList<Quizz.Models.EF.Exam>, page => Url.Action("TestList", new { page }))
+                    @Html.PagedListPager(ViewBag.listTest as PagedList.IPagedList<Quizz.Models.EF.Exam>, page => Url.Action("TestCodes", new { page }))
                 </div>
             </div>
         </div>

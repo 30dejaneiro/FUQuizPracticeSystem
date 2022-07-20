@@ -48,7 +48,8 @@ namespace Quizz.Controllers
         {
             using (QuizzDbContext db = new QuizzDbContext())
             {
-                string id = Session["account"] == null ? "" : Session["account"].ToString();
+                UserLogin userLogin = (UserLogin)Session["account"];
+                String id = userLogin.UserID;
                 var check = db.Accounts.FirstOrDefault(s => s.account_id == id);
                 var findCode = db.Exams.FirstOrDefault(e => e.code == code);
                 if (check != null)
