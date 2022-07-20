@@ -65,6 +65,13 @@ namespace Quizz.Models.DAO
             return obj == null;
         }
 
+        public int GetTotalQuesById(int id)
+        {
+            var obj = (from t in db.ExamsQues where t.exam_id == id select t).Count();
+            return obj;
+        }
+        
+
         public int TestAOU(Exam vm, int id)
         {
             int status = 0;

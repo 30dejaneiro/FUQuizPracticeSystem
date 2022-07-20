@@ -1,0 +1,86 @@
+﻿@using PagedList.Mvc
+@{
+    ViewBag.Title = "Score List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string userId = "";
+    var userLogin = (Quizz.Common.UserLogin)HttpContext.Current.Session["account"];
+    if (userLogin != null)
+    {
+        userId = userLogin.UserID;
+    }
+}
+<div class="grid">
+    <div class="grid__row">
+        <div class="grid__col-2">
+            <div class="sub-nav">
+                <h2 class="sub-nav__title"><i class="fas fa-list mr-10"></i>Dashboard</h2>
+                <ul class="sub-nav__list">
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("User Profile", "UserProfile", "Profile", new { id = userId }, new { @class = "sub-nav__link text", @id = "defaultOpen" })
+                    </li>
+                    <li class="sub-nav__item">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Change password", "ChangePassword", "Profile", new { id = userId }, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item sub-nav__item--active">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Scores", "Scores", "Profile", new { id = userId }, new { @class = "sub-nav__link text" })
+                    </li>
+                    <li class="sub-nav__item sub-nav__item--active">
+                        <i class="fas fa-caret-right sub-nav-active-icon"></i>
+                        @Html.ActionLink("Test Code", "TestCodes", "Profile", new { id = userId }, new { @class = "sub-nav__link text" })
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="grid__col-10">
+            <!-- Topic List -->
+            <div class="nav-content__wrapper" id="vocab">
+                <div class="nav-content__header">
+                    <h2 class="nav-content__title">Score List</h2>
+                    <div class="nav-content__action"></div>
+                </div>
+                <div class="nav-content__body">
+                    <table class="nav-content__table">
+                        <thead>
+                            <tr>
+                                <th>Test Code</th>
+                                <th>Result</th>
+                                <th>Score</th>
+                                <th>Date Tested</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Enumerable.Count(ViewBag.listScore) == 0)
+                            {
+                                <tr>
+                                    <td></td>
+                                    <td><span style="font-size: 2rem;height: 50px;display: block;line-height: 50px;">No data</span></td>
+                                    <td></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                foreach (var v in (ViewBag.listScore as PagedList.IPagedList<Quizz.Models.ViewModel.ScoreTestViewModel>))
+                                {
+                                    <tr>
+                                        <td>@v.TestCode</td>
+                                        <td>@(v.TotalScore / (100 / v.TotalQues)) / @v.TotalQues questions</td>
+                                        <td>@v.TotalScore / 100</td>
+                                        <td>@(v.DateTest.HasValue ? v.DateTest.Value.ToString("dd/MM/yyyy") : string.Empty)</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="nav-content__footer">
+                    @Html.PagedListPager(ViewBag.listScore as PagedList.IPagedList<Quizz.Models.ViewModel.ScoreTestViewModel>, page => Url.Action("ScoreList", new { page }))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -86,7 +86,7 @@
                                     </div>
                                     <div class="form__group">
                                         @Html.LabelFor(m => m.num_of_ques, "Number of question:")
-                                        @Html.TextBoxFor(m => m.num_of_ques, new { type = "number", @class = "form__control", @placeholder = "Number of question" })
+                                        @Html.TextBoxFor(m => m.num_of_ques, new { type = "number", @class = "form__control", @placeholder = "Number of question",@min=0, @id = "numOfQues" })
                                         <span style="color:red;margin-top: 10px">@Html.ValidationMessageFor(m => m.num_of_ques)</span>
                                     </div>
                                 </div>
@@ -102,7 +102,4 @@
         </div>
     </div>
 </div>
-<script src="~/Scripts/jquery-3.4.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 

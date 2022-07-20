@@ -1,4 +1,5 @@
-﻿using Quizz.Models.DAO;
+﻿using Quizz.Common;
+using Quizz.Models.DAO;
 using Quizz.Models.EF;
 using Quizz.Models.ViewModel;
 using System;
@@ -11,7 +12,96 @@ namespace Quizz.Controllers
 {
     public class ProfileController : BaseController
     {
-        // GET: Bank
+        [CheckCredential(Role_ID = "2")]
+        public ActionResult UserProfile(string id)
+        {
+            var iplUser = new UserDAO();
+            var student = iplUser.GetUserById(id);
+            return View(student);
+        }
+
+        [CheckCredential(Role_ID = "2")]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [CheckCredential(Role_ID = "2")]
+        public ActionResult Scores(string id, int? page)
+        {
+            var iplScore = new ScoreDAO();
+            ViewBag.listScore = iplScore.GetScoresByAccount(id, page);
+            return View();
+        }
+
+        [HttpPost]
+        [CheckCredential(Role_ID = "2")]
+        public ActionResult ChangePassword(AuthViewModel av)
+        {
+            UserLogin userLogin = (UserLogin)Session["account"];
+            string id = userLogin.UserID;
+            using (QuizzDbContext db = new QuizzDbContext())
+            {
+                db.Configuration.ValidateOnSaveEnabled = true;
+                var obj = db.Accounts.Where(s => s.account_id.Equals(id) && s.password.Equals(av.Oldpassword)).FirstOrDefault();
+                if (obj != null)
+                {
+                    if (av.Repassword == av.Newpassword && av.Oldpassword != av.Newpassword)
+                    {
+                        obj.password = av.Repassword;
+                        db.SaveChanges();
+                        SetAlert("Change password successfully!", "success");
+                    }
+                    else if (av.Oldpassword == av.Newpassword)
+                    {
+                        SetAlert("New password can't equal old password!", "warning");
+                    }
+                    else
+                    {
+                        SetAlert("Re-new password is not equal password!", "warning");
+                    }
+                }
+                else
+                {
+                    SetAlert("Old password is not correct!", "warning");
+                }
+            }
+            return RedirectToAction("ChangePassword", "Profile", new { id });
+        }
+
+        [HttpPost]
+        [CheckCredential(Role_ID = "2")]
+        public ActionResult UserProfile(AccountViewModel st)
+        {
+            var iplUser = new UserDAO();
+            var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("account_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
+            if (errors.Length == 0)
+            {
+                bool check = iplUser.UserAOU(st, st.AccountId);
+                if (check == true)
+                {
+                    SetAlert("Update success!!!", "success");
+                    if (st.AccountId != "1")
+                    {
+                        var UserSession = new UserLogin();
+                        UserSession.UserName = st.FullName;
+                        Session.Add("account", UserSession);
+                    }
+                }
+                else
+                {
+                    SetAlert("Create fail!!!", "error");
+                }
+                return RedirectToAction("UserProfile", "Profile", new { id = st.AccountId });
+            }
+            else
+            {
+                var student = iplUser.GetUserById(st.AccountId);
+                return View(student);
+            }
+        }
+
+        [CheckCredential(Role_ID = "2")]
         public ActionResult MyBank(string id, int? page, string search)
         {
             var iplBank = new BankDAO();
@@ -19,6 +109,15 @@ namespace Quizz.Controllers
             ViewBag.accId = id;
             return View();
         }
+
+        [CheckCredential(Role_ID = "2")]
+        public ActionResult TestCodes(int? page)
+        {
+            var iplTest = new TestDAO();
+            ViewBag.listTest = iplTest.PageTests(page);
+            return View();
+        }
+
         public ActionResult Questions(string id, int? page, string search)
         {
             var iplQuestion = new QuestionDAO();
@@ -28,6 +127,7 @@ namespace Quizz.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(Role_ID = "2")]
         public ActionResult QuestionDetail(int id, string aId)
         {
             var iplBank = new BankDAO();
@@ -40,11 +140,13 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "2")]
         public ActionResult QuestionDetail(QuestionViewModel qs)
         {
             var iplBank = new BankDAO();
             var iplQuestion = new QuestionDAO();
-            var session = Session["account"].ToString();
+            UserLogin userLogin = (UserLogin)Session["account"];
+            string session = userLogin.UserID;
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("question_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
@@ -75,6 +177,7 @@ namespace Quizz.Controllers
 
         }
 
+        [CheckCredential(Role_ID = "2")]
         public ActionResult BankDetail(int? id, string aId)
         {
             var iplBank = new BankDAO();
@@ -86,13 +189,15 @@ namespace Quizz.Controllers
             ViewBag.listAccount = iplUser.GetAllAccount();
             return View(bank);
         }
+
         [HttpPost]
+        [CheckCredential(Role_ID = "2")]
         public ActionResult BankDetail(BankViewModel bq)
         {
             var iplBank = new BankDAO();
             var iplSubject = new SubjectDAO();
-
-            var session = Session["account"].ToString();
+            UserLogin userLogin = (UserLogin)Session["account"];
+            string session = userLogin.UserID;
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("Bank_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
@@ -116,6 +221,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "2")]
         public JsonResult DeleteBank(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -137,6 +243,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "2")]
         public JsonResult DeleteQuestion(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())

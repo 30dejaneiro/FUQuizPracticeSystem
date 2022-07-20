@@ -1,4 +1,5 @@
-﻿using Quizz.Models;
+﻿using Quizz.Common;
+using Quizz.Models;
 using Quizz.Models.DAO;
 using Quizz.Models.EF;
 using Quizz.Models.ViewModel;
@@ -12,7 +13,7 @@ namespace Quizz.Controllers
 {
     public class AdminController : BaseController
     {
-        // GET: Admin
+        [CheckCredential(Role_ID = "1")]
         public ActionResult Index(int? page, string search)
         {
             var iplUser = new UserDAO();
@@ -21,6 +22,7 @@ namespace Quizz.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult StudentDetail(string id)
         {
             var iplUser = new UserDAO();
@@ -29,6 +31,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult StudentDetail(AccountViewModel st)
         {
             var iplUser = new UserDAO();
@@ -39,7 +42,6 @@ namespace Quizz.Controllers
                 if (check == true)
                 {
                     SetAlert(st.AccountId == null ? "Create success!!!" : "Update success!!!", "success");
-                    Session["fullName"] = st.FullName;
                 }
                 else
                 {
@@ -55,6 +57,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public JsonResult DeleteStudent(string id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -82,14 +85,14 @@ namespace Quizz.Controllers
                 }
             }
         }
-
+        [CheckCredential(Role_ID = "1")]
         public ActionResult SubjectList(int? page, string search)
         {
             var iplSubject = new SubjectDAO();
             ViewBag.listSubjects = iplSubject.PageSubjects(page, search);
             return View();
         }
-
+        [CheckCredential(Role_ID = "1")]
         public ActionResult SubjectDetail(int? id)
         {
             var iplSubject = new SubjectDAO();
@@ -98,10 +101,13 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult SubjectDetail(Subject s)
         {
             var iplSubject = new SubjectDAO();
-            var session = Session["account"].ToString();
+            UserLogin userLogin = (UserLogin)Session["account"];
+            string session = userLogin.UserID;
+
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("subject_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
@@ -116,6 +122,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public JsonResult DeleteSubject(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -135,13 +142,16 @@ namespace Quizz.Controllers
                 }
             }
         }
-
+        [CheckCredential(Role_ID = "1")]
         public ActionResult BankList(int? page, string search)
         {
             var iplBank = new BankDAO();
             ViewBag.listBank = iplBank.PageBanks(page, search);
             return View();
         }
+
+
+        [CheckCredential(Role_ID = "1")]
         public ActionResult BankDetail(int? id)
         {
             var iplBank = new BankDAO();
@@ -152,12 +162,15 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult BankDetail(BankViewModel bq)
         {
             var iplBank = new BankDAO();
             var iplSubject = new SubjectDAO();
 
-            var session = Session["account"].ToString();
+            UserLogin userLogin = (UserLogin)Session["account"];
+            string session = userLogin.UserID;
+
             var errors = ModelState.Where(x => x.Value.Errors.Count > 0 && !x.Key.Equals("Bank_id")).Select(x => new { x.Key, x.Value.Errors }).ToArray();
             if (errors.Length == 0)
             {
@@ -174,6 +187,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public JsonResult DeleteBank(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -194,6 +208,7 @@ namespace Quizz.Controllers
             }
         }
 
+        [CheckCredential(Role_ID = "1")]
         public ActionResult QuestionList(int? page, string search)
         {
             var iplQuestion = new QuestionDAO();
@@ -202,6 +217,7 @@ namespace Quizz.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult QuestionDetail(int id)
         {
             var iplQuestion = new QuestionDAO();
@@ -212,6 +228,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult QuestionDetail(QuestionViewModel qs)
         {
             var iplQuestion = new QuestionDAO();
@@ -238,6 +255,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public JsonResult DeleteQuestion(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -257,7 +275,7 @@ namespace Quizz.Controllers
                 }
             }
         }
-
+        [CheckCredential(Role_ID = "1")]
         public ActionResult TestList(int? page)
         {
             var iplTest = new TestDAO();
@@ -266,6 +284,7 @@ namespace Quizz.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult TestDetail(int id)
         {
             var iplTest = new TestDAO();
@@ -275,6 +294,7 @@ namespace Quizz.Controllers
 
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         [ValidateAntiForgeryToken]
         public ActionResult TestDetail(Exam vm)
         {
@@ -301,6 +321,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public JsonResult DeleteTest(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -325,7 +346,7 @@ namespace Quizz.Controllers
                 return Json(new { mess = message });
             }
         }
-
+        [CheckCredential(Role_ID = "1")]
         public ActionResult ExamQuestions(int? page, string search)
         {
             var iplQuestion = new ExamQuestionDAO();
@@ -334,6 +355,7 @@ namespace Quizz.Controllers
         }
 
         [HttpGet]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult ExamQuestionDetail(int id)
         {
             var iplQuestion = new ExamQuestionDAO();
@@ -344,6 +366,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public ActionResult ExamQuestionDetail(ExamQuestionModel qs)
         {
             var iplQuestion = new ExamQuestionDAO();
@@ -370,6 +393,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public JsonResult DeleteExamQuestion(int id)
         {
             using (QuizzDbContext db = new QuizzDbContext())
@@ -389,7 +413,7 @@ namespace Quizz.Controllers
                 }
             }
         }
-
+        [CheckCredential(Role_ID = "1")]
         public ActionResult ScoreList(int? page)
         {
             var iplScore = new ScoreDAO();
@@ -398,6 +422,7 @@ namespace Quizz.Controllers
         }
 
         [HttpPost]
+        [CheckCredential(Role_ID = "1")]
         public JsonResult ResetPassword(string roleNum)
         {
             using (QuizzDbContext db = new QuizzDbContext())
